@@ -60,9 +60,7 @@ class ColorLogFormatter(logging.Formatter):
         """
         color = self.LEVEL_COLORS.get(record.levelno, self.RESET)
         formatted = super().format(record)
-        if sys.stdout.isatty():
-            return f"{color}{formatted}{self.RESET}"
-        return formatted
+        return f"{color}{formatted}{self.RESET}"
 
 
 class OutputHandler:

@@ -98,5 +98,15 @@
     "is_deleted": false,
     "is_new": false,
     "version": 2.0
+  },
+  {
+    "category": "Telemetry",
+    "component": "ColorLogFormatter",
+    "description": "Fix - ColorLogFormatter formatting in non-TTY CI environments.",
+    "epoch_timestamp": 1755648000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": false,
+    "version": 2.0
   }
 ]
