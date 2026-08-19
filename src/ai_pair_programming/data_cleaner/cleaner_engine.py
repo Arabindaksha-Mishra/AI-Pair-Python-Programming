@@ -25,7 +25,7 @@ from ai_pair_programming.data_transformer.io_utils import (
 )
 from ai_pair_programming.data_transformer.outlier_handler import cap_matrix_outliers
 from ai_pair_programming.data_transformer.sanitizer import infer_and_cast_value
-from ai_pair_programming.output_handler import OutputHandler, get_logger
+from ai_pair_programming.telemetry import OutputHandler, get_logger
 
 
 @dataclass(slots=True)

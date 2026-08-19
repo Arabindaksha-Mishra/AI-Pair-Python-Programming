@@ -17,7 +17,7 @@ sys.path.insert(
     0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src")
 )
 
-from ai_pair_programming.output_handler import (
+from ai_pair_programming.telemetry import (
     ColorLogFormatter,
     OutputHandler,
     get_logger,
@@ -129,7 +129,7 @@ class TestOutputHandler(unittest.TestCase):
         )
         formatted = formatter.format(record)
         self.assertIn("hello world", formatted)
-        self.assertIn("\033[32m", formatted)
+        self.assertIn(ColorLogFormatter.GREEN, formatted)
 
     def test_log_transformation_step(self) -> None:
         """

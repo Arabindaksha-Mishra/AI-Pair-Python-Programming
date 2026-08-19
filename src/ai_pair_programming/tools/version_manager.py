@@ -13,7 +13,7 @@ import os
 import sys
 from typing import Any
 
-from ai_pair_programming.output_handler import OutputHandler, get_logger
+from ai_pair_programming.telemetry import OutputHandler, get_logger
 
 
 def _find_project_root() -> str:

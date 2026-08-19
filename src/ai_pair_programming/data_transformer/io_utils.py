@@ -9,7 +9,7 @@ from __future__ import annotations
 import csv
 from typing import Any
 
-from ai_pair_programming.output_handler import get_logger
+from ai_pair_programming.telemetry import get_logger
 
 _LOGGER = get_logger("data_transformer.io")
 

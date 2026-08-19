@@ -10,7 +10,7 @@ Covers:
 
 from collections.abc import Iterable
 
-from ai_pair_programming.output_handler import get_logger
+from ai_pair_programming.telemetry import get_logger
 
 _LOGGER = get_logger("algorithms.loops")
 

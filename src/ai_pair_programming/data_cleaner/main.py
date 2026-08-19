@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 import sys
 
-from ai_pair_programming.output_handler import get_logger
+from ai_pair_programming.telemetry import get_logger
 
 from .cleaner_engine import DataCleaningAssistant, DatasetProfile
 from .reporter import generate_audit_report

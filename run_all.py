@@ -22,7 +22,7 @@ import os
 import subprocess
 import sys
 
-from ai_pair_programming.output_handler import get_logger
+from ai_pair_programming.telemetry import get_logger
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.join(PROJECT_ROOT, "src")

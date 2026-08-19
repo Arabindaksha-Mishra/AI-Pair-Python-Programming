@@ -36,7 +36,7 @@ import re
 import sys
 from typing import ClassVar
 
-from ai_pair_programming.output_handler import OutputHandler, get_logger
+from ai_pair_programming.telemetry import OutputHandler, get_logger
 
 
 class Severity(StrEnum):

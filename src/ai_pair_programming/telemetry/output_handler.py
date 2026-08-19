@@ -1,8 +1,8 @@
 """
-Centralized Output & Hourly Rotating Log Handler
-=================================================
-Provides enterprise structured logging, colorized console output,
-and automated 1-hour time-based log file rotation into the `logs/` directory.
+Structured Logging & Telemetry Engine
+=====================================
+Unified output handler providing colorized console streaming and automated
+1-hour interval rotating file logging into the centralized `logs/` directory.
 """
 
 from __future__ import annotations
@@ -16,48 +16,52 @@ from typing import ClassVar
 
 def _resolve_project_logs_dir() -> str:
     """
-    Resolve absolute path to the project root 'logs' directory.
+    Locate or create the root 'logs' directory for the project.
 
     Returns:
-        str: Absolute filesystem path to 'logs' directory.
+        str: Absolute filesystem path to the 'logs' directory.
 
     """
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(os.path.dirname(current_dir))
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
     logs_dir = os.path.join(project_root, "logs")
     os.makedirs(logs_dir, exist_ok=True)
     return logs_dir
 
 
 class ColorLogFormatter(logging.Formatter):
-    """Custom log formatter applying ANSI color codes to log levels."""
+    """Custom formatter injecting ANSI color codes into terminal log records."""
 
-    COLOR_MAP: ClassVar[dict[int, str]] = {
-        logging.DEBUG: "\033[36m",
-        logging.INFO: "\033[32m",
-        logging.WARNING: "\033[33m",
-        logging.ERROR: "\033[31m",
-        logging.CRITICAL: "\033[1;31m",
+    GREY: ClassVar[str] = "\x1b[38;20m"
+    GREEN: ClassVar[str] = "\x1b[32;20m"
+    YELLOW: ClassVar[str] = "\x1b[33;20m"
+    RED: ClassVar[str] = "\x1b[31;20m"
+    BOLD_RED: ClassVar[str] = "\x1b[31;1m"
+    RESET: ClassVar[str] = "\x1b[0m"
+
+    LEVEL_COLORS: ClassVar[dict[int, str]] = {
+        logging.DEBUG: GREY,
+        logging.INFO: GREEN,
+        logging.WARNING: YELLOW,
+        logging.ERROR: RED,
+        logging.CRITICAL: BOLD_RED,
     }
-    RESET: ClassVar[str] = "\033[0m"
 
     def format(self, record: logging.LogRecord) -> str:
         """
-        Format the log record with level-specific ANSI coloring.
+        Format LogRecord instance with severity-specific ANSI escape codes.
 
         Args:
-            record (logging.LogRecord): Log record event to format.
+            record (logging.LogRecord): The log record to format.
 
         Returns:
-            str: Colorized and formatted log message string.
+            str: Colorized multi-line log string.
 
         """
-        orig_levelname = record.levelname
-        color = self.COLOR_MAP.get(record.levelno, "")
-        if color:
-            record.levelname = f"{color}{orig_levelname}{self.RESET}"
+        color = self.LEVEL_COLORS.get(record.levelno, self.RESET)
         formatted = super().format(record)
-        record.levelname = orig_levelname
+        if sys.stdout.isatty():
+            return f"{color}{formatted}{self.RESET}"
         return formatted
 
 

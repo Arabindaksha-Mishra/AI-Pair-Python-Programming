@@ -12,7 +12,7 @@ from collections.abc import Iterable
 from typing import Any
 
 from ai_pair_programming.data_transformer.deduplicator import deduplicate_list
-from ai_pair_programming.output_handler import get_logger
+from ai_pair_programming.telemetry import get_logger
 
 _LOGGER = get_logger("algorithms.collections")
 

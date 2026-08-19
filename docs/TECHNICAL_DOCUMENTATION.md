@@ -48,8 +48,10 @@ AI-Pair-Python-Programming/
 │   └── ai_pair_programming/     # Top-Level Namespace
 │       ├── __init__.py          # Re-exports and version metadata
 │       ├── main.py              # CLI entrypoint
-│       ├── output_handler.py    # Structured logging and telemetry
 │       │
+│       ├── telemetry/           # Structured Logging & File Rotation
+│       │   ├── __init__.py          # Re-exports OutputHandler & get_logger
+│       │   └── output_handler.py    # 1-Hour Rotating Handler Engine
 │       ├── algorithms/          # Functional Group: Part 1 Exercises
 │       │   ├── collections_ops.py   # Q1 (Unique) & Q10 (Set ops)
 │       │   ├── numeric_math.py      # Q2, Q3, Q6, Q8 Math Algorithms

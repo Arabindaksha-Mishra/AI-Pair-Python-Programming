@@ -14,7 +14,7 @@ from collections.abc import Generator
 from functools import lru_cache
 import math
 
-from ai_pair_programming.output_handler import get_logger
+from ai_pair_programming.telemetry import get_logger
 
 _LOGGER = get_logger("algorithms.math")
 

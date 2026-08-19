@@ -58,8 +58,10 @@ AI-Pair-Python-Programming/
 │   └── ai_pair_programming/     # Top-Level Python Package
 │       ├── __init__.py          # Package metadata & re-exports
 │       ├── main.py              # CLI entrypoint
-│       ├── output_handler.py    # Structured Logging & Telemetry
 │       │
+│       ├── 📡 telemetry/        # Structured Logging & File Rotation
+│       │   ├── __init__.py          # Re-exports OutputHandler & get_logger
+│       │   └── output_handler.py    # 1-Hour Rotating Handler Engine
 │       ├── 🧩 algorithms/       # Senior Domain Algorithms
 │       │   ├── collections_ops.py   # Group 1: Unique & Sets
 │       │   ├── numeric_math.py      # Group 2: Math & Series
