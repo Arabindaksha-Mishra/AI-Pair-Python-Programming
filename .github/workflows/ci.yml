@@ -33,30 +33,7 @@ jobs:
 
       - name: Enforce Strict 88-Column Line Width
         run: |
-          python3 -c "
-          import os, sys
-          MAX_LEN = 88
-          EXCLUDE = {'.git', '__pycache__', '.pytest_cache', '.venv', 'venv'}
-          EXCLUDE.update({'.ruff_cache', 'logs'})
-          violations = []
-          for root, dirs, files in os.walk('.'):
-              dirs[:] = [d for d in dirs if d not in EXCLUDE]
-              for file in files:
-                  if file.endswith('.zip'):
-                      continue
-                  path = os.path.join(root, file)
-                  with open(path, 'r', encoding='utf-8', errors='replace') as f:
-                      for idx, line in enumerate(f, 1):
-                          line_len = len(line.rstrip('\r\n'))
-                          if line_len > MAX_LEN:
-                              violations.append((path, idx, line_len))
-          if violations:
-              print(f'Found {len(violations)} line length violations:')
-              for p, i, l in violations:
-                  print(f'  {p}:{i} (length={l})')
-              sys.exit(1)
-          print('✅ Line length audit passed: 0 violations of 88 columns.')
-          "
+          python3 ci/check_line_length.py
 
   security-and-architecture:
     name: AST Security, Quality & Release Integrity
@@ -73,13 +50,13 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=src" >> $GITHUB_ENV
 
+      - name: Validate Release Notes Schema (RN.json)
+        run: |
+          python3 ci/validate_release_notes.py
+
       - name: Run AST Security & Quality Review Agent
         run: |
           python3 -m ai_pair_programming.tools.code_review_agent
-
-      - name: Validate Release Notes (RN.json)
-        run: |
-          python3 -m ai_pair_programming.tools.version_manager
 
   test-suite:
     name: Modular Automated Unit & Integration Tests

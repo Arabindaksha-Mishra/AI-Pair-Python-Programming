@@ -108,5 +108,15 @@
     "is_deleted": false,
     "is_new": false,
     "version": 2.0
+  },
+  {
+    "category": "DevOps",
+    "component": "CIDirectory",
+    "description": "CI Suite - Created ci/ directory with quality automation.",
+    "epoch_timestamp": 1755648000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 2.0
   }
 ]

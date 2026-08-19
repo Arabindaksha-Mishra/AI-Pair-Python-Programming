@@ -178,6 +178,21 @@ def run_version_manager() -> None:
     input(f"\n{BOLD}Press [Enter] to return to main menu...{RESET}")
 
 
+def run_ci_pipeline() -> None:
+    """
+    Execute full CI verification pipeline (Ruff, 88-col, AST security, tests).
+
+    Returns:
+        None
+
+    """
+    _LOGGER.info("Executing complete CI verification pipeline...")
+    from ci.run_quality_checks import run_all_ci_checks
+
+    run_all_ci_checks()
+    input(f"\n{BOLD}Press [Enter] to return to main menu...{RESET}")
+
+
 def _print_menu_options() -> None:
     """
     Display interactive menu options in terminal.
@@ -207,8 +222,12 @@ def _print_menu_options() -> None:
         "  5.  🧹 Automated Data Cleaning Assistant "
         "(Imputation, Outliers, Types, Deduplication)"
     )
-    print(f"\n{BOLD}VERIFICATION, QUALITY & VERSION MANAGEMENT{RESET}")
-    print(f"  {GREEN}T.  Run Automated Test Suite (35+ Tests, 100% Pass Rate){RESET}")
+    print(f"\n{BOLD}VERIFICATION, QUALITY & CI PIPELINE{RESET}")
+    print(
+        f"  {GREEN}P.  Run Complete CI Pipeline "
+        f"(Format, Lint, 88-Col, Security, Tests){RESET}"
+    )
+    print(f"  {GREEN}T.  Run Automated Test Suite (40 Tests, 100% Pass Rate){RESET}")
     print(f"  {CYAN}C.  Run Automated Security & Code Bug Review Agent{RESET}")
     print(f"  {MAGENTA}V.  View Release Notes & Version History (RN.json){RESET}")
     print("  Q.  Quit")
@@ -238,6 +257,8 @@ def _handle_menu_choice(choice: str) -> bool:
         )
     elif choice == "5":
         run_capstone_cleaner()
+    elif choice == "P":
+        run_ci_pipeline()
     elif choice == "T":
         run_tests()
     elif choice == "C":
@@ -263,7 +284,9 @@ def main() -> None:
         print_banner()
         _print_menu_options()
         choice = (
-            input(f"{BOLD}Select an option [1-5, T, C, V, Q]: {RESET}").strip().upper()
+            input(f"{BOLD}Select an option [1-5, P, T, C, V, Q]: {RESET}")
+            .strip()
+            .upper()
         )
         if not _handle_menu_choice(choice):
             break
