@@ -38,4 +38,6 @@ env/
 htmlcov/
 *.zip
 *_cleaned.csv
+logs/
+*.log
 

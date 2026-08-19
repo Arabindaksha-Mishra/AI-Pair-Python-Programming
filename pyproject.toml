@@ -1,0 +1,100 @@
+[project]
+name = "ai-pair-python-programming"
+version = "2.0.0"
+description = "Senior Python Exercises and AI Data Cleaning Assistant"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Senior Python Engineering Team" }
+]
+keywords = ["algorithms", "data-cleaning", "data-engineering", "clean-code"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.scripts]
+ai-pair = "ai_pair_programming.main:main"
+data-cleaner = "ai_pair_programming.data_cleaner.main:run_data_cleaner_cli"
+code-reviewer = "ai_pair_programming.tools.code_review_agent:main"
+version-manager = "ai_pair_programming.tools.version_manager:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_pair_programming"]
+
+# ==============================================================================
+# Strict Ruff & Black Configuration (Python 3.12+)
+# ==============================================================================
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+src = ["src", "tests"]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "dist",
+    "build",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors (including E501 <= 88 columns)
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade (Python 3.12+ modern syntax)
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "C4",   # flake8-comprehensions
+    "RUF",  # Ruff-specific rules
+    "ANN",  # flake8-annotations (Mandatory type hints for functions & methods)
+]
+ignore = [
+    "ANN401", # Dynamically typed expressions (typing.Any) are allowed where necessary
+    "RUF001", # Ambiguous Unicode in strings (mathematical symbols like union/delta)
+    "RUF002", # Ambiguous Unicode in docstrings
+    "RUF003", # Ambiguous Unicode in comments
+]
+fixable = ["ALL"]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+suppress-dummy-args = true
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+known-first-party = ["ai_pair_programming"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+)/
+'''

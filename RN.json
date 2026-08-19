@@ -1,0 +1,82 @@
+[
+  {
+    "category": "Algorithms",
+    "component": "SeniorAlgorithms",
+    "description": "Senior Algorithms & Capstone Cleaner Initial Release.",
+    "epoch_timestamp": 1740528000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 1.0
+  },
+  {
+    "category": "Pipeline",
+    "component": "DataCleaningAssistant",
+    "description": "Data Cleaner - Missing imputation & outlier handling.",
+    "epoch_timestamp": 1740528000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 1.0
+  },
+  {
+    "category": "Tool",
+    "component": "CodeReviewAgent",
+    "description": "Code Review Agent - AST security & defect detection.",
+    "epoch_timestamp": 1744761600,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 1.1
+  },
+  {
+    "category": "Documentation",
+    "component": "CodingStandards",
+    "description": "Coding Standards - Uncle Bob Clean Code heuristics.",
+    "epoch_timestamp": 1744761600,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 1.1
+  },
+  {
+    "category": "Infrastructure",
+    "component": "PackageArchitecture",
+    "description": "Architecture - Migrated codebase to modern uv/src layout.",
+    "epoch_timestamp": 1749600000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": false,
+    "version": 2.0
+  },
+  {
+    "category": "Package",
+    "component": "DataTransformer",
+    "description": "Data Transformer - Reusable sanitizer & imputer package.",
+    "epoch_timestamp": 1749600000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 2.0
+  },
+  {
+    "category": "Module",
+    "component": "OutputHandler",
+    "description": "OutputHandler - Structured 1-hour rotating file logging.",
+    "epoch_timestamp": 1755648000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 2.0
+  },
+  {
+    "category": "Tool",
+    "component": "VersionManager",
+    "description": "Version Manager - RN.json release tracking & tool.",
+    "epoch_timestamp": 1755648000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 2.0
+  }
+]
