@@ -187,7 +187,7 @@ def run_ci_pipeline() -> None:
 
     """
     _LOGGER.info("Executing complete CI verification pipeline...")
-    from ci.run_quality_checks import run_all_ci_checks
+    from CI.run_quality_checks import run_all_ci_checks
 
     run_all_ci_checks()
     input(f"\n{BOLD}Press [Enter] to return to main menu...{RESET}")

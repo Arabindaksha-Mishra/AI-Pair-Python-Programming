@@ -33,7 +33,7 @@ jobs:
 
       - name: Enforce Strict 88-Column Line Width
         run: |
-          python3 ci/check_line_length.py
+          python3 CI/check_line_length.py
 
   security-and-architecture:
     name: AST Security, Quality & Release Integrity
@@ -52,7 +52,7 @@ jobs:
 
       - name: Validate Release Notes Schema (RN.json)
         run: |
-          python3 ci/validate_release_notes.py
+          python3 CI/validate_release_notes.py
 
       - name: Run AST Security & Quality Review Agent
         run: |

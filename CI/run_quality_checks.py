@@ -85,11 +85,11 @@ def run_all_ci_checks() -> int:
         ),
         (
             "88-Column Line Width Validation",
-            [sys.executable, "ci/check_line_length.py"],
+            [sys.executable, "CI/check_line_length.py"],
         ),
         (
             "Release Notes (RN.json) Schema Validation",
-            [sys.executable, "ci/validate_release_notes.py"],
+            [sys.executable, "CI/validate_release_notes.py"],
         ),
         (
             "AST Security & Defect Review Agent",

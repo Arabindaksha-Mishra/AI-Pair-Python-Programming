@@ -49,7 +49,7 @@ AI-Pair-Python-Programming/
 ├── 📁 logs/                     # 1-Hour Rotating Log Storage
 │   └── app.log                  # Active hourly rotated application log
 │
-├── 🚀 ci/                       # Automated CI & Quality Scripts
+├── 🚀 CI/                       # Automated CI & Quality Scripts
 │   ├── check_line_length.py     # 88-column limit validator
 │   ├── validate_release_notes.py # RN.json schema validator
 │   └── run_quality_checks.py    # Master CI pipeline runner
