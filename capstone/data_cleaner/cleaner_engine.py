@@ -52,8 +52,8 @@ class DataCleaningAssistant:
     def load_csv(self, file_path: str) -> Tuple[List[str], List[List[str]]]:
         """Loads a raw CSV file and strips leading/trailing field whitespace."""
         with open(file_path, mode="r", encoding="utf-8-sig") as f:
-            reader = csv.reader(f)
-            rows = [list(map(str.strip, row)) for row in reader if row]
+            reader = csv.reader(f, skipinitialspace=True)
+            rows = [[cell.strip() for cell in row] for row in reader if row and any(c.strip() for c in row)]
 
         if not rows:
             raise ValueError(f"CSV file is empty: {file_path}")
@@ -88,7 +88,7 @@ class DataCleaningAssistant:
         key_idx = headers.index(key_column) if (key_column and key_column in headers) else None
 
         for row in rows:
-            record_key = row[key_idx] if key_idx is not None else tuple(str(x) for x in row)
+            record_key = row[key_idx] if (key_idx is not None and key_idx < len(row)) else tuple(str(x) for x in row)
             if record_key not in seen:
                 seen.add(record_key)
                 deduped_rows.append(row)
@@ -100,18 +100,25 @@ class DataCleaningAssistant:
     # 2. Type Inference & Value Sanitization
     # -----------------------------------------------------------------------
 
-    def sanitize_value(self, val: str) -> Union[int, float, str, None]:
+    def sanitize_value(self, val: Any) -> Union[int, float, str, None]:
         """
         Sanitizes strings by cleaning currency symbols, commas, and converting to numeric/dates.
+        Supports $, €, £, ¥ and accounting parenthetical negative formats.
         """
+        if val is None:
+            return None
+
         val_str = str(val).strip()
         if val_str.lower() in NULL_STRINGS:
             return None
 
-        # Check for currency format (e.g. "$450,000" or "-$50,000")
-        currency_clean = re.sub(r"[$,]", "", val_str)
-        # Handle trailing/leading negative formatting
-        if currency_clean.startswith("-$"):
+        # Check for accounting negative format e.g. "(500)" or "($500)"
+        if val_str.startswith("(") and val_str.endswith(")"):
+            val_str = "-" + val_str[1:-1].strip()
+
+        # Clean currency symbols and commas
+        currency_clean = re.sub(r"[\$,€£¥]", "", val_str).strip()
+        if currency_clean.startswith("-$") or currency_clean.startswith("-€") or currency_clean.startswith("-£"):
             currency_clean = "-" + currency_clean[2:]
 
         # Attempt Integer cast
@@ -141,11 +148,21 @@ class DataCleaningAssistant:
     ) -> Tuple[List[List[Any]], Dict[str, str]]:
         """
         Infers column types and casts values to appropriate Python datatypes.
+        Handles jagged rows gracefully.
         """
         cleaned_rows: List[List[Any]] = []
         col_type_guesses: Dict[str, List[str]] = {h: [] for h in headers}
+        num_headers = len(headers)
 
-        for row in rows:
+        for raw_row in rows:
+            # Normalize row length to match headers length
+            if len(raw_row) < num_headers:
+                row = raw_row + [""] * (num_headers - len(raw_row))
+            elif len(raw_row) > num_headers:
+                row = raw_row[:num_headers]
+            else:
+                row = raw_row
+
             cleaned_row = []
             for idx, val in enumerate(row):
                 sanitized = self.sanitize_value(val)
@@ -261,11 +278,12 @@ class DataCleaningAssistant:
 
             # Cap values exceeding bounds
             for row in rows:
-                current_val = float(row[idx])
-                if current_val < lower_fence or current_val > upper_fence:
-                    outlier_counts[h] += 1
-                    capped_val = max(lower_fence, min(upper_fence, current_val))
-                    row[idx] = int(round(capped_val)) if inferred_types[h] == "int" else round(capped_val, 2)
+                if idx < len(row) and isinstance(row[idx], (int, float)):
+                    current_val = float(row[idx])
+                    if current_val < lower_fence or current_val > upper_fence:
+                        outlier_counts[h] += 1
+                        capped_val = max(lower_fence, min(upper_fence, current_val))
+                        row[idx] = int(round(capped_val)) if inferred_types[h] == "int" else round(capped_val, 2)
 
         return rows, outlier_counts
 

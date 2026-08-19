@@ -22,11 +22,13 @@ from typing import Generator, List
 # 1. Recursive Implementations
 # ---------------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=1024)
 def _fib_recursive_term(n: int) -> int:
     """Computes n-th Fibonacci number using memoized recursion."""
     if n < 0:
         raise ValueError("Fibonacci index must be non-negative.")
+    if n > 500:
+        raise ValueError("Fibonacci recursive depth limit exceeded (max: 500). Use fibonacci_iterative instead.")
     if n in (0, 1):
         return n
     return _fib_recursive_term(n - 1) + _fib_recursive_term(n - 2)

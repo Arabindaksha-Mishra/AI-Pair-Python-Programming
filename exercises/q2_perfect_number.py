@@ -47,7 +47,7 @@ def is_perfect_number(n: int) -> bool:
         >>> is_perfect_number(1)
         False
     """
-    if not isinstance(n, int) or n <= 1:
+    if isinstance(n, bool) or not isinstance(n, int) or n <= 1:
         return False
 
     # 1 is always a proper divisor for n > 1

@@ -64,22 +64,27 @@ def _calculate_health_score(m: Any) -> float:
 
 
 def _format_ascii_table(headers: List[str], rows: List[List[Any]]) -> str:
-    """Formats 2D matrix into a clean ASCII table."""
-    if not rows:
+    """Formats 2D matrix into a clean ASCII table with defensive column length handling."""
+    if not headers or not rows:
         return "(Empty Table)"
 
-    # Compute column widths
+    num_cols = len(headers)
+    # Compute column widths safely
     widths = [len(str(h)) for h in headers]
     for row in rows:
-        for i, val in enumerate(row):
+        for i in range(num_cols):
+            val = row[i] if i < len(row) else ""
             widths[i] = max(widths[i], len(str(val)))
 
     header_line = " | ".join(f"{str(h):{widths[i]}}" for i, h in enumerate(headers))
-    separator = "-+-".join("-" * widths[i] for i in range(len(headers)))
+    separator = "-+-".join("-" * widths[i] for i in range(num_cols))
 
     row_lines = []
     for row in rows:
-        row_str = " | ".join(f"{str(val):{widths[i]}}" for i, val in enumerate(row))
-        row_lines.append(row_str)
+        formatted_cells = [
+            f"{str(row[i] if i < len(row) else ''):{widths[i]}}" for i in range(num_cols)
+        ]
+        row_lines.append(" | ".join(formatted_cells))
 
     return f"{header_line}\n{separator}\n" + "\n".join(row_lines)
+

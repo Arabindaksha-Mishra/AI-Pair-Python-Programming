@@ -12,7 +12,7 @@ Senior Engineering Highlights:
 - Separation of formatting logic into testable helper functions.
 """
 
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 
 def get_default_pizzas() -> List[str]:
@@ -30,7 +30,7 @@ def format_pizza_statements(pizzas: List[str]) -> List[str]:
     return [f"I like {pizza} pizza." for pizza in pizzas]
 
 
-def generate_pizza_statements(pizzas: List[str] = None) -> Tuple[List[str], List[str], str]:
+def generate_pizza_statements(pizzas: Optional[List[str]] = None) -> Tuple[List[str], List[str], str]:
     """
     Executes the complete pizza progression:
     - Step 1: Raw names

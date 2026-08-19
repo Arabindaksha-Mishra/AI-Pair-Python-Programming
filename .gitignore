@@ -37,3 +37,5 @@ env/
 .coverage
 htmlcov/
 *.zip
+*_cleaned.csv
+

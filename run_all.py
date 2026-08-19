@@ -37,10 +37,8 @@ def print_banner():
 
 def run_tests():
     print(f"\n{YELLOW}{BOLD}>>> Running Automated Unit Test Suite...{RESET}\n")
-    loader = unittest.TestLoader()
-    suite = loader.discover(".", pattern="test_suite.py")
-    runner = unittest.TextTestRunner(verbosity=2)
-    result = runner.run(suite)
+    from test_suite import run_all_tests
+    run_all_tests()
     input(f"\n{BOLD}Press [Enter] to return to main menu...{RESET}")
 
 
@@ -62,6 +60,16 @@ def run_capstone_cleaner():
     input(f"\n{BOLD}Press [Enter] to return to menu...{RESET}")
 
 
+def run_code_review():
+    print(f"\n{CYAN}{BOLD}>>> Launching Automated Security & Code Bug Review Agent...{RESET}\n")
+    from code_review_agent import CodeReviewAgent
+    agent = CodeReviewAgent(root_dir=".")
+    agent.scan_directory(".")
+    report = agent.generate_report()
+    print(report)
+    input(f"\n{BOLD}Press [Enter] to return to main menu...{RESET}")
+
+
 def main():
     while True:
         clear_screen()
@@ -80,12 +88,13 @@ def main():
         print(f"\n{BOLD}PART 2: Capstone Projects{RESET}")
         print("  11. Task 1: Context-Aware Rule-Based Chatbot (Regex & State Memory)")
         print("  12. Task 2: Automated Data Cleaning Assistant (Dirty Datasets)")
-        print(f"\n{BOLD}VERIFICATION & UTILITIES{RESET}")
+        print(f"\n{BOLD}VERIFICATION & CODE QUALITY AUDIT{RESET}")
         print(f"  {GREEN}T.  Run Automated Test Suite (100% Coverage){RESET}")
+        print(f"  {CYAN}C.  Run Automated Security & Code Bug Review Agent{RESET}")
         print("  Q.  Quit")
         print("-" * 68)
 
-        choice = input(f"{BOLD}Select an option [1-12, T, Q]: {RESET}").strip().upper()
+        choice = input(f"{BOLD}Select an option [1-12, T, C, Q]: {RESET}").strip().upper()
 
         if choice == "1":
             run_exercise("q1_unique_elements", "Q1: Unique Elements")
@@ -113,6 +122,8 @@ def main():
             run_capstone_cleaner()
         elif choice == "T":
             run_tests()
+        elif choice == "C":
+            run_code_review()
         elif choice in ("Q", "QUIT", "EXIT"):
             print(f"\n{CYAN}Thank you for evaluating this submission! Goodbye.{RESET}\n")
             break

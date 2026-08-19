@@ -108,11 +108,19 @@ class RegexMatcher:
         if not cleaned:
             return IntentType.UNKNOWN, slots
 
-        # Check for Name Introduction first (e.g., "Hi, my name is Alex")
+        # Check for Name Introduction (e.g., "Hi, my name is Alex", "Call me Bob")
         name_match = self.re_name.search(cleaned)
         if name_match:
-            slots["user_name"] = name_match.group(1).capitalize()
-            return IntentType.NAME_PRESENTATION, slots
+            candidate_name = name_match.group(1).capitalize()
+            # Guard against common adjectives / states when user says "I am happy" / "I'm fine"
+            non_name_stoplist = {
+                "Happy", "Tired", "Fine", "Good", "Sad", "Ready", "Excited", "Here",
+                "Back", "Ok", "Okay", "Sorry", "Curious", "Testing", "Learning",
+                "Doing", "Wondering", "Working", "New", "Looking", "Thinking",
+            }
+            if candidate_name not in non_name_stoplist:
+                slots["user_name"] = candidate_name
+                return IntentType.NAME_PRESENTATION, slots
 
         # Farewells
         if self.re_farewell.search(cleaned):

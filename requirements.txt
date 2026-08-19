@@ -1,0 +1,5 @@
+# Core Runtime Dependencies
+# =========================
+# This project adheres to a ZERO EXTERNAL DEPENDENCY architectural constraint.
+# It runs 100% on the Python Standard Library (Python >= 3.8).
+# No external pip packages are required for runtime execution.

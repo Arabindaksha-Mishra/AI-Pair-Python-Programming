@@ -19,6 +19,25 @@ def run_data_cleaner_cli() -> None:
 
     assistant = DataCleaningAssistant()
 
+    # Support direct CLI argument (e.g., python3 -m capstone.data_cleaner.main /path/to/custom.csv)
+    if len(sys.argv) > 1 and not sys.argv[1].startswith("-"):
+        target_file = sys.argv[1]
+        name = os.path.basename(target_file)
+        if not os.path.isfile(target_file):
+            print(f"Error: File '{target_file}' does not exist.")
+            sys.exit(1)
+
+        print(f"\nProcessing '{name}' from: {target_file} ...")
+        headers, raw_rows = assistant.load_csv(target_file)
+        profile = assistant.clean_dataset(headers, raw_rows)
+        report_text = generate_audit_report(profile, dataset_name=name)
+        print(report_text)
+
+        out_path = os.path.splitext(target_file)[0] + "_cleaned.csv"
+        assistant.save_csv(out_path, profile.headers, profile.rows)
+        print(f"✅ Cleaned dataset successfully exported to: {out_path}\n")
+        return
+
     print("\n" + "=" * 65)
     print("   🧹 Automated Data Cleaning Assistant (Standard Library)   ")
     print("=" * 65)
@@ -28,7 +47,11 @@ def run_data_cleaner_cli() -> None:
     print("3. Custom CSV file path")
     print("4. Exit")
 
-    choice = input("\nEnter choice [1-4]: ").strip()
+    try:
+        choice = input("\nEnter choice [1-4]: ").strip()
+    except (KeyboardInterrupt, EOFError):
+        print("\nOperation cancelled.")
+        return
 
     if choice == "1":
         target_file = house_csv
@@ -37,7 +60,11 @@ def run_data_cleaner_cli() -> None:
         target_file = ecommerce_csv
         name = "E-Commerce Orders"
     elif choice == "3":
-        target_file = input("Enter path to your CSV file: ").strip()
+        try:
+            target_file = input("Enter path to your CSV file: ").strip()
+        except (KeyboardInterrupt, EOFError):
+            print("\nOperation cancelled.")
+            return
         name = os.path.basename(target_file)
         if not os.path.isfile(target_file):
             print(f"Error: File '{target_file}' does not exist.")
@@ -54,12 +81,17 @@ def run_data_cleaner_cli() -> None:
     print(report_text)
 
     # Option to export cleaned CSV
-    export_choice = input("Would you like to export the cleaned CSV? (y/n): ").strip().lower()
+    try:
+        export_choice = input("Would you like to export the cleaned CSV? (y/n): ").strip().lower()
+    except (KeyboardInterrupt, EOFError):
+        return
     if export_choice in ("y", "yes"):
-        out_path = target_file.replace(".csv", "_cleaned.csv")
+        out_path = os.path.splitext(target_file)[0] + "_cleaned.csv"
         assistant.save_csv(out_path, profile.headers, profile.rows)
         print(f"✅ Cleaned dataset successfully exported to: {out_path}")
 
 
 if __name__ == "__main__":
     run_data_cleaner_cli()
+
+

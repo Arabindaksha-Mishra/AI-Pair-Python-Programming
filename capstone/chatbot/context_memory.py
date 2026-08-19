@@ -26,20 +26,21 @@ class TurnRecord:
 class ConversationContext:
     """Stateful dialogue context manager."""
 
-    def __init__(self) -> None:
+    def __init__(self, max_history: int = 100) -> None:
         self.user_name: Optional[str] = None
         self.last_intent: Optional[str] = None
         self.last_topic: Optional[str] = None
         self.turn_count: int = 0
         self.history: List[TurnRecord] = []
         self.custom_slots: Dict[str, Any] = {}
+        self.max_history: int = max_history
 
     def set_user_name(self, name: str) -> None:
         """Saves or updates user's name in memory."""
         self.user_name = name.strip().capitalize()
 
     def record_turn(self, user_input: str, bot_response: str, intent_name: str) -> None:
-        """Records an utterance turn in the dialogue history."""
+        """Records an utterance turn in the dialogue history (bounded to max_history)."""
         self.turn_count += 1
         self.last_intent = intent_name
         record = TurnRecord(
@@ -49,6 +50,8 @@ class ConversationContext:
             intent=intent_name,
         )
         self.history.append(record)
+        if len(self.history) > self.max_history:
+            self.history.pop(0)
 
     def get_user_greeting_tag(self) -> str:
         """Returns personalized name tag if user name is known."""

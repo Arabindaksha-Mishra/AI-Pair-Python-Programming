@@ -64,6 +64,10 @@ class RuleBasedChatbot:
             ),
         }
 
+    def reset(self) -> None:
+        """Resets the conversation context state to a fresh session."""
+        self.context = ConversationContext()
+
     def process_message(self, user_input: str) -> str:
         """
         Processes incoming user message through sanitization, pattern matching,
