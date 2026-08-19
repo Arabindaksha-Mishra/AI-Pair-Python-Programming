@@ -78,5 +78,15 @@
     "is_deleted": false,
     "is_new": true,
     "version": 2.0
+  },
+  {
+    "category": "DevOps",
+    "component": "CIPipeline",
+    "description": "CI Pipeline - GitHub Actions automated lint, style & tests.",
+    "epoch_timestamp": 1755648000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 2.0
   }
 ]
