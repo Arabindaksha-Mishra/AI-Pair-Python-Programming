@@ -112,7 +112,17 @@
   {
     "category": "DevOps",
     "component": "CIDirectory",
-    "description": "CI Suite - Created ci/ directory with quality automation.",
+    "description": "CI Suite - Created CI/ directory with quality automation.",
+    "epoch_timestamp": 1755648000,
+    "is_breaking": false,
+    "is_deleted": false,
+    "is_new": true,
+    "version": 2.0
+  },
+  {
+    "category": "Documentation",
+    "component": "MentorManual",
+    "description": "Documentation - Comprehensive mentor analysis & user manual.",
     "epoch_timestamp": 1755648000,
     "is_breaking": false,
     "is_deleted": false,
