@@ -48,14 +48,8 @@ def run_exercise(module_name: str, display_name: str):
     input(f"\n{BOLD}Press [Enter] to return to menu...{RESET}")
 
 
-def run_capstone_chatbot():
-    print(f"\n{CYAN}{BOLD}>>> Launching Task 1: Context-Aware Rule-Based Chatbot...{RESET}\n")
-    subprocess.run([sys.executable, "-m", "capstone.chatbot.main"])
-    input(f"\n{BOLD}Press [Enter] to return to menu...{RESET}")
-
-
 def run_capstone_cleaner():
-    print(f"\n{CYAN}{BOLD}>>> Launching Task 2: Automated Data Cleaning Assistant...{RESET}\n")
+    print(f"\n{CYAN}{BOLD}>>> Launching Capstone: Automated Data Cleaning Assistant...{RESET}\n")
     subprocess.run([sys.executable, "-m", "capstone.data_cleaner.main"])
     input(f"\n{BOLD}Press [Enter] to return to menu...{RESET}")
 
@@ -85,16 +79,15 @@ def main():
         print("  8.  Q8: Square Numbers (0..9) with Parity 'continue'")
         print("  9.  Q9: Anagram Theory & O(N) Frequency Checker")
         print("  10. Q10: Set Operations & Duplicate Elimination (Union / Symm Diff)")
-        print(f"\n{BOLD}PART 2: Capstone Projects{RESET}")
-        print("  11. Task 1: Context-Aware Rule-Based Chatbot (Regex & State Memory)")
-        print("  12. Task 2: Automated Data Cleaning Assistant (Dirty Datasets)")
+        print(f"\n{BOLD}PART 2: Capstone Project (AI-Powered Data Quality){RESET}")
+        print("  11. AI-Powered Data Cleaning Assistant (Imputation, Outliers, Types, Deduplication)")
         print(f"\n{BOLD}VERIFICATION & CODE QUALITY AUDIT{RESET}")
         print(f"  {GREEN}T.  Run Automated Test Suite (100% Coverage){RESET}")
         print(f"  {CYAN}C.  Run Automated Security & Code Bug Review Agent{RESET}")
         print("  Q.  Quit")
         print("-" * 68)
 
-        choice = input(f"{BOLD}Select an option [1-12, T, C, Q]: {RESET}").strip().upper()
+        choice = input(f"{BOLD}Select an option [1-11, T, C, Q]: {RESET}").strip().upper()
 
         if choice == "1":
             run_exercise("q1_unique_elements", "Q1: Unique Elements")
@@ -117,8 +110,6 @@ def main():
         elif choice == "10":
             run_exercise("q10_set_operations", "Q10: Set Operations")
         elif choice == "11":
-            run_capstone_chatbot()
-        elif choice == "12":
             run_capstone_cleaner()
         elif choice == "T":
             run_tests()
@@ -131,3 +122,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

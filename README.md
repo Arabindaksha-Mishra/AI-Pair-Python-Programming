@@ -1,6 +1,6 @@
 # AI Pair Python Programming — Capstone & Senior Exercise Suite
 
-> **Turnkey Python Engineering Project**  
+> **Turnkey Python Engineering Submission**  
 > **Standard:** Python 3.8+ (Zero External Dependencies, 0 API Keys, 100% Python Standard Library)
 
 ---
@@ -25,7 +25,7 @@ python3 code_review_agent.py
 ```bash
 python3 test_suite.py
 ```
-*(Executes all 21 unit and integration tests across exercises, chatbot, data cleaner, code review agent, and E2E pipeline with 100% pass rate)*
+*(Executes all 18 unit and integration tests across exercises, data cleaner, code review agent, and E2E pipeline with 100% pass rate)*
 
 ---
 
@@ -49,8 +49,7 @@ AI-Pair-Python-Programming/
 ├── tests/                             # Modular Test Suite (Separate Test Files)
 │   ├── __init__.py
 │   ├── test_exercises.py              # Tests for Q1–Q10 Python exercises
-│   ├── test_chatbot.py                # Tests for Task 1 Rule-Based Chatbot
-│   ├── test_data_cleaner.py           # Tests for Task 2 Data Cleaning Engine & Custom Datasets
+│   ├── test_data_cleaner.py           # Tests for Capstone Data Cleaning Engine & Custom Datasets
 │   ├── test_code_review_agent.py      # Tests for Automated Code Review & Security Agent
 │   └── test_e2e.py                    # Tests for End-to-End CSV File I/O & Pipeline
 │
@@ -67,15 +66,9 @@ AI-Pair-Python-Programming/
 │   ├── q9_anagram_checker.py          # Q9: Anagram theory & O(N) frequency solver
 │   └── q10_set_operations.py          # Q10: Set duplicate elimination & operations
 │
-└── capstone/                          # Part 2: Capstone Projects
+└── capstone/                          # Part 2: Capstone Project
     ├── __init__.py
-    ├── chatbot/                       # Task 1: Context-Aware Rule-Based Chatbot
-    │   ├── __init__.py
-    │   ├── regex_matcher.py           # Regex pattern matching & slot extraction
-    │   ├── context_memory.py          # Dialogue state & conversation memory tracker
-    │   ├── bot_engine.py              # Central response generation engine
-    │   └── main.py                    # Standalone interactive chat CLI
-    └── data_cleaner/                  # Task 2: Automated Data Cleaning Assistant
+    └── data_cleaner/                  # AI-Powered Data Cleaning Assistant
         ├── __init__.py
         ├── cleaner_engine.py          # Missing values, outliers, type inference, deduplication
         ├── reporter.py                # Terminal / Markdown audit report generator
@@ -87,51 +80,77 @@ AI-Pair-Python-Programming/
 
 ---
 
-## 🛡️ Automated Code Review & Security Agent
+## 🧩 Part 1: Python Exercises for Senior Engineers
 
-The repository includes a dedicated static security and bug review agent in [code_review_agent.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/code_review_agent.py):
+All 10 questions are implemented with type annotations, docstrings, unit tests, and stand-alone CLI runners:
 
-* **Static AST Code Inspection:** Identifies dangerous dynamic evaluations (`eval`/`exec`), unsafe deserialization (`pickle`), command injection risks (`subprocess` with `shell=True`), and bare `except:` clauses.
-* **Pattern & Heuristic Rules:** Flags hardcoded secrets, mutable default arguments, and file path manipulation bugs.
-* **Zero Dependencies:** Built 100% using Python built-in modules (`ast`, `re`, `os`, `sys`).
+| # | Question / Module | Algorithm & Highlights | Time | Space |
+|---|---|---|---|---|
+| **Q1** | [q1_unique_elements.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q1_unique_elements.py) | Preserves first-seen insertion order using `dict.fromkeys()` with unhashable fallback. | $O(N)$ | $O(N)$ |
+| **Q2** | [q2_perfect_number.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q2_perfect_number.py) | Validates sum of proper positive divisors checking divisor pairs up to $\sqrt{N}$. | $O(\sqrt{N})$ | $O(1)$ |
+| **Q3** | [q3_digit_difference.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q3_digit_difference.py) | Extracts digits, sorts descending & ascending, and calculates difference (e.g. `"213"` $\to 321 - 123 = 198$). | $O(D \log D)$ | $O(D)$ |
+| **Q4** | [q4_pizza_toppings.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q4_pizza_toppings.py) | Interactive REPL prompt loop with case-insensitive `'quit'` sentinel and automated headless simulator. | $O(1)$/turn | $O(N)$ |
+| **Q5** | [q5_movie_ticket.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q5_movie_ticket.py) | Age-tiered pricing (<3: Free, 3-12: $10, >12: $15) with `ValueError` recovery and batch simulator. | $O(1)$ | $O(1)$ |
+| **Q6** | [q6_fibonacci.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q6_fibonacci.py) | Comparative analysis: LRU-memoized recursion ($O(N)$), iterative two-pointer ($O(1)$ space), and lazy generator. | $O(N)$ | $O(1)$ |
+| **Q7** | [q7_pizza_statements.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q7_pizza_statements.py) | List iteration, statement templating (`"I like {pizza} pizza."`), and concluding multi-line summary. | $O(N)$ | $O(N)$ |
+| **Q8** | [q8_square_loop.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q8_square_loop.py) | Loops $0..9$, squares numbers, skips even numbers via `continue`, and outputs odd squares ($1, 9, 25, 49, 81$). | $O(N)$ | $O(1)$ |
+| **Q9** | [q9_anagram_checker.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q9_anagram_checker.py) | Linguistic & mathematical definition + $O(N)$ character frequency map (`collections.Counter`). | $O(N)$ | $O(K)$ |
+| **Q10** | [q10_set_operations.py](file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/exercises/q10_set_operations.py) | Set duplicate elimination via Set Union ($A \cup B$) and exclusive items via Symmetric Difference ($A \Delta B$). | $O(N)$ | $O(N)$ |
+
+---
+
+## 🧹 Part 2: Capstone Project — AI-Powered Data Cleaning Assistant
+
+The capstone project is an automated, statistical data-quality pipeline built to clean dirty real-world datasets:
+
+* **Included Sample Datasets:**
+  * House Price Prediction Dataset (`capstone/data_cleaner/datasets/house_prices_dirty.csv`)
+  * E-Commerce Orders Dataset (`capstone/data_cleaner/datasets/ecommerce_orders_dirty.csv`)
+* **Custom Dataset Support:** Accepts any arbitrary `.csv` file provided by the evaluator.
+* **4 Core Quality Capabilities:**
+  1. **Missing Value Imputation:** Statistical imputation using **Median** (numeric) and **Mode** (categorical).
+  2. **Outlier Detection & Capping:** Computes $IQR = Q_3 - Q_1$ fences and bounds anomalies to $[Q_1 - 1.5 \times IQR, Q_3 + 1.5 \times IQR]$.
+  3. **Data Type Correction:** Heuristic inference (`int`, `float`, `date`, `str`) with multi-currency sanitization (`$`, `€`, `£`, `¥`).
+  4. **Duplicate Detection:** Identifies exact row duplicates and key collisions.
+  5. **Executive Audit Report:** Outputs formatted ASCII before/after summary tables and exports clean CSVs.
 
 ```bash
-# Scan workspace
-python3 code_review_agent.py
+# Run interactive cleaner
+python3 -m capstone.data_cleaner.main
+
+# Or clean any custom dataset directly
+python3 -m capstone.data_cleaner.main /path/to/custom_data.csv
 ```
 
 ---
 
-## 🧪 Running Separate Test Files Individually
-
-Each component has its own dedicated test file in `tests/`:
+## 🛡️ Automated Code Review & Security Agent
 
 ```bash
-# 1. Test Senior Exercises (Q1 to Q10)
-python3 tests/test_exercises.py
+python3 code_review_agent.py
+```
+*(AST-based security vulnerability and defect analyzer verifying 0 dynamic code execution, 0 command injection, and clean code standards)*
 
-# 2. Test Rule-Based Chatbot (NLP Regex & State Memory)
-python3 tests/test_chatbot.py
+---
 
-# 3. Test Data Cleaning Engine (Type Inference, Imputation, Outliers, Custom CSVs)
-python3 tests/test_data_cleaner.py
+## 🧪 Running Automated Tests
 
-# 4. Test Code Review Agent Engine
-python3 tests/test_code_review_agent.py
-
-# 5. Test End-to-End Pipeline & File Export
-python3 tests/test_e2e.py
-
-# 6. Run all tests combined
+```bash
+# Master runner
 python3 test_suite.py
+
+# Run individual test modules
+python3 tests/test_exercises.py
+python3 tests/test_data_cleaner.py
+python3 tests/test_code_review_agent.py
+python3 tests/test_e2e.py
 ```
 
 ---
 
 ## 📦 Distribution Packager
 
-To package the entire codebase into a clean `.zip` file for distribution:
 ```bash
 python3 zip_submission.py
 ```
-This generates `ai_pair_programming_capstone_submission.zip` ready for evaluation.
+*(Generates `ai_pair_programming_capstone_submission.zip` for final delivery)*
