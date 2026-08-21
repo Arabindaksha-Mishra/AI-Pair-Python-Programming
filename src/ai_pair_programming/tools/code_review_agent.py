@@ -651,18 +651,22 @@ class CodeReviewAgent:
             None
 
         """
-        rn_path = os.path.join(self.root_dir, "RN.json")
+        rn_path = os.path.join(self.root_dir, "release_notes.json")
         if not os.path.isfile(rn_path):
             self.findings.append(
                 ReviewFinding(
-                    file_path="RN.json",
+                    file_path="release_notes.json",
                     line_number=1,
                     severity=Severity.MEDIUM,
                     category="Architecture",
                     rule_id="ARCH-001",
-                    message="Missing root RN.json release specification file.",
+                    message=(
+                        "Missing root release_notes.json release specification file."
+                    ),
                     snippet="",
-                    remediation="Generate RN.json tracking project changes.",
+                    remediation=(
+                        "Generate release_notes.json tracking project changes."
+                    ),
                 )
             )
             return
@@ -673,31 +677,33 @@ class CodeReviewAgent:
             if not isinstance(records, list):
                 self.findings.append(
                     ReviewFinding(
-                        file_path="RN.json",
+                        file_path="release_notes.json",
                         line_number=1,
                         severity=Severity.MEDIUM,
                         category="Architecture",
                         rule_id="ARCH-001",
                         message=(
-                            "RN.json root structure should be a list of change records."
+                            "release_notes.json root structure should be "
+                            "a list of change records."
                         ),
                         snippet="",
                         remediation=(
-                            "Ensure RN.json contains a list of change dictionaries."
+                            "Ensure release_notes.json contains a list of "
+                            "change dictionaries."
                         ),
                     )
                 )
         except Exception as e:
             self.findings.append(
                 ReviewFinding(
-                    file_path="RN.json",
+                    file_path="release_notes.json",
                     line_number=1,
                     severity=Severity.HIGH,
                     category="Architecture",
                     rule_id="ARCH-001",
-                    message=f"Failed to parse RN.json: {e}",
+                    message=f"Failed to parse release_notes.json: {e}",
                     snippet="",
-                    remediation="Fix JSON syntax error in RN.json.",
+                    remediation="Fix JSON syntax error in release_notes.json.",
                 )
             )
 

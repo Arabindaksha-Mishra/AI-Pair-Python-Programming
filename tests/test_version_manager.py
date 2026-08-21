@@ -1,5 +1,5 @@
 """
-Test Suite: Version Manager & Release Notes Engine (RN.json)
+Test Suite: Version Manager & Release Notes Engine (release_notes.json)
 =============================================================
 Unit tests covering schema loading, version extraction, record addition,
 and history formatting.
@@ -21,18 +21,18 @@ from ai_pair_programming.tools.version_manager import VersionManager
 
 
 class TestVersionManager(unittest.TestCase):
-    """Unit tests for VersionManager and RN.json tracking."""
+    """Unit tests for VersionManager and release_notes.json tracking."""
 
     def setUp(self) -> None:
         """
-        Set up temporary sandbox directory fixture with mock RN.json.
+        Set up temporary sandbox directory fixture with mock release_notes.json.
 
         Returns:
             None
 
         """
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.rn_path = os.path.join(self.temp_dir.name, "RN.json")
+        self.rn_path = os.path.join(self.temp_dir.name, "release_notes.json")
 
         initial_data = [
             {
@@ -73,7 +73,7 @@ class TestVersionManager(unittest.TestCase):
 
     def test_add_change_record(self) -> None:
         """
-        Verify recording a new version change record in RN.json.
+        Verify recording a new version change record in release_notes.json.
 
         Returns:
             None
@@ -111,7 +111,7 @@ class TestVersionManager(unittest.TestCase):
 
     def test_missing_file_fallback(self) -> None:
         """
-        Verify graceful fallback when RN.json does not exist.
+        Verify graceful fallback when release_notes.json does not exist.
 
         Returns:
             None

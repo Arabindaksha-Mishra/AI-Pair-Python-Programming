@@ -2,7 +2,7 @@
 
 An enterprise-grade Python 3.12+ repository built with modern `uv` / `src`-layout
 standards, zero external runtime dependencies, comprehensive test automation,
-centralized hourly rotating logging, and `RN.json` release notes management.
+centralized hourly rotating logging, and `release_notes.json` release notes management.
 
 ---
 
@@ -14,7 +14,7 @@ python3 run_all.py
 ```
 *(Opens interactive launcher for domain algorithms, cleaner, and tools)*
 
-### 2. View Release Notes & Version History (RN.json)
+### 2. View Release Notes & Version History (release_notes.json)
 ```bash
 python3 -m ai_pair_programming.tools.version_manager
 ```
@@ -39,7 +39,7 @@ python3 -m unittest discover tests
 
 ```text
 AI-Pair-Python-Programming/
-├── RN.json                      # 📋 Release Notes & Version Specification
+├── release_notes.json                      # 📋 Release Notes & Version Specification
 ├── pyproject.toml               # PEP 621 / uv package configuration
 ├── README.md                    # Quickstart guide & documentation
 ├── requirements.txt             # Standard runtime requirements (0 deps)
@@ -51,7 +51,7 @@ AI-Pair-Python-Programming/
 │
 ├── 🚀 CI/                       # Automated CI & Quality Scripts
 │   ├── check_line_length.py     # 88-column limit validator
-│   ├── validate_release_notes.py # RN.json schema validator
+│   ├── validate_release_notes.py # release_notes.json schema validator
 │   └── run_quality_checks.py    # Master CI pipeline runner
 │
 ├── 📖 docs/                     # Documentation & Standards
@@ -88,24 +88,24 @@ AI-Pair-Python-Programming/
 │           └── version_manager.py   # Release Notes & Version Manager
 │
 └── 🧪 tests/                    # Modular Test Suites (40 Tests)
-    ├── test_algorithms.py       # Domain Group Tests
+    ├── test_exercises.py        # Senior Exercises Tests
     ├── test_data_transformer.py # Transformer Unit Tests
     ├── test_data_cleaner.py     # Cleaner Assistant Tests
     ├── test_output_handler.py   # Logging & Telemetry Tests
     ├── test_code_review_agent.py # AST Security Agent Tests
-    ├── test_version_manager.py  # RN.json Version Tests
+    ├── test_version_manager.py  # release_notes.json Version Tests
     └── test_e2e.py              # E2E Pipeline Integration Tests
 ```
 
 ---
 
-## 📋 Release Notes & Version Management (`RN.json`)
+## 📋 Release Notes & Version Management (`release_notes.json`)
 
-The project uses [`RN.json`][rn-file] to track version transitions
+The project uses [`release_notes.json`][rn-file] to track version transitions
 (`1.0.0` $\to$ `1.1.0` $\to$ `2.0.0`), timestamps, categorized changes, and
 validation metrics:
 
-[rn-file]: file:///usr/local/google/home/arabindaksha/AI-Pair-Python-Programming/RN.json
+[rn-file]: release_notes.json
 
 ```bash
 # View human-readable formatted release history

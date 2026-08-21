@@ -20,7 +20,7 @@ practices:
    - `data_transformer/`: Reusable sanitizers, deduplicators, imputers.
    - `data_cleaner/`: Production tabular data cleaning engine.
    - `output_handler.py`: Centralized structured logging and telemetry.
-   - `tools/`: AST-based security auditing agent and RN.json version manager.
+   - `tools/`: AST-based security auditing agent and release_notes.json version manager.
 3. **Quality & Verification:** 100% automated test coverage across `tests/`.
 
 ---
@@ -29,7 +29,7 @@ practices:
 
 ```text
 AI-Pair-Python-Programming/
-├── RN.json                      # Release Notes & Version Specification
+├── release_notes.json                      # Release Notes & Version Specification
 ├── pyproject.toml               # PEP 621 / uv package configuration
 ├── README.md                    # Quickstart guide & documentation
 ├── requirements.txt             # Standard runtime requirements (0 deps)
@@ -41,7 +41,7 @@ AI-Pair-Python-Programming/
 │
 ├── CI/                          # Automated CI & Quality Tools
 │   ├── check_line_length.py     # 88-column limit validator
-│   ├── validate_release_notes.py # RN.json schema validator
+│   ├── validate_release_notes.py # release_notes.json schema validator
 │   └── run_quality_checks.py    # Master CI pipeline runner
 │
 ├── docs/                        # Project Documentation
@@ -86,7 +86,7 @@ AI-Pair-Python-Programming/
     ├── test_data_cleaner.py     # Cleaner Assistant Tests
     ├── test_output_handler.py   # Logging & Telemetry Tests
     ├── test_code_review_agent.py # AST Security Agent Tests
-    ├── test_version_manager.py  # RN.json Version Tests
+    ├── test_version_manager.py  # release_notes.json Version Tests
     └── test_e2e.py              # E2E Pipeline Integration Tests
 ```
 

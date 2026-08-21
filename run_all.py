@@ -182,13 +182,13 @@ def run_code_review() -> None:
 
 def run_version_manager() -> None:
     """
-    Display release notes and version management history from RN.json.
+    Display release notes and version management history from release_notes.json.
 
     Returns:
         None
 
     """
-    _LOGGER.info("Displaying Release Notes (RN.json) history...")
+    _LOGGER.info("Displaying Release Notes (release_notes.json) history...")
     from ai_pair_programming.tools.version_manager import VersionManager
 
     vm = VersionManager()
@@ -244,7 +244,10 @@ def _print_menu_options() -> None:
     )
     print(f"   {GREEN}T.  Run Automated Test Suite (40 Tests, 100% Pass Rate){RESET}")
     print(f"   {CYAN}C.  Run Automated Security & Code Bug Review Agent{RESET}")
-    print(f"   {MAGENTA}V.  View Release Notes & Version History (RN.json){RESET}")
+    print(
+        f"   {MAGENTA}V.  View Release Notes & Version History "
+        f"(release_notes.json){RESET}"
+    )
     print("   Q.  Quit")
     print("-" * 68)
 

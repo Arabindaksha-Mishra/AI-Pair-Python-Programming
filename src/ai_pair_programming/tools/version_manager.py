@@ -2,7 +2,7 @@
 Release Notes & Version Management Engine
 ==========================================
 Manages structured release tracking, version bumping, and changelog history
-via the centralized `RN.json` metadata specification.
+via the centralized `release_notes.json` metadata specification.
 """
 
 from __future__ import annotations
@@ -38,10 +38,10 @@ class VersionManager:
         logger: OutputHandler | None = None,
     ) -> None:
         """
-        Initialize the VersionManager with target RN.json file.
+        Initialize the VersionManager with target release_notes.json file.
 
         Args:
-            rn_file_path (str | None): Optional path to RN.json file.
+            rn_file_path (str | None): Optional path to release_notes.json file.
             logger (OutputHandler | None): Logger instance.
 
         Returns:
@@ -50,7 +50,7 @@ class VersionManager:
         """
         if rn_file_path is None:
             project_root = _find_project_root()
-            self.rn_file_path = os.path.join(project_root, "RN.json")
+            self.rn_file_path = os.path.join(project_root, "release_notes.json")
         else:
             self.rn_file_path = os.path.abspath(rn_file_path)
 
@@ -59,7 +59,7 @@ class VersionManager:
 
     def _load_records(self) -> list[dict[str, Any]]:
         """
-        Load records from RN.json or return empty default list.
+        Load records from release_notes.json or return empty default list.
 
         Returns:
             list[dict[str, Any]]: List of release note change records.
@@ -67,7 +67,8 @@ class VersionManager:
         """
         if not os.path.exists(self.rn_file_path):
             self.logger.warning(
-                f"RN.json not found at {self.rn_file_path}. Initializing default."
+                f"release_notes.json not found at {self.rn_file_path}. "
+                "Initializing default."
             )
             return []
 
@@ -78,12 +79,12 @@ class VersionManager:
                     return data
                 return []
         except Exception as e:
-            self.logger.error(f"Failed to read RN.json: {e}")
+            self.logger.error(f"Failed to read release_notes.json: {e}")
             return []
 
     def save(self) -> None:
         """
-        Persist current records list to RN.json on disk.
+        Persist current records list to release_notes.json on disk.
 
         Returns:
             None

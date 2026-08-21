@@ -1,7 +1,7 @@
 """
 CI Utility: Release Notes Specification Validator
 =================================================
-Validates the presence, syntax, schema conformity, and integrity of RN.json.
+Validates presence, syntax, schema conformity, and integrity of release_notes.json.
 """
 
 from __future__ import annotations
@@ -22,9 +22,9 @@ REQUIRED_FIELDS: set[str] = {
 }
 
 
-def validate_rn_file(file_path: str = "RN.json") -> list[str]:
+def validate_rn_file(file_path: str = "release_notes.json") -> list[str]:
     """
-    Validate the format and required fields of target RN.json file.
+    Validate the format and required fields of target release_notes.json file.
 
     Args:
         file_path (str): Path to release notes JSON file.
@@ -74,22 +74,22 @@ def validate_rn_file(file_path: str = "RN.json") -> list[str]:
 
 def main() -> None:
     """
-    CLI entrypoint for RN.json validation in CI pipeline.
+    CLI entrypoint for release_notes.json validation in CI pipeline.
 
     Returns:
         None
 
     """
-    path = sys.argv[1] if len(sys.argv) > 1 else "RN.json"
+    path = sys.argv[1] if len(sys.argv) > 1 else "release_notes.json"
     errors = validate_rn_file(path)
 
     if errors:
-        print(f"❌ RN.json Validation Failed: Found {len(errors)} schema issues:")
+        print(f"❌ release_notes.json Validation Failed: Found {len(errors)} issues:")
         for err in errors:
             print(f"  • {err}")
         sys.exit(1)
 
-    print("✅ RN.json specification validated successfully.")
+    print("✅ release_notes.json specification validated successfully.")
     sys.exit(0)
 
 

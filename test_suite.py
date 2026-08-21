@@ -9,7 +9,7 @@ Unified runner executing all modular test suites:
 - tests/test_output_handler.py    : Centralized Logging & Telemetry Engine
 - tests/test_e2e.py               : End-to-End Pipeline & File I/O Integration
 - tests/test_code_review_agent.py : Static AST & Security Inspection Agent
-- tests/test_version_manager.py   : RN.json Release Notes & Version Manager
+- tests/test_version_manager.py   : release_notes.json Release Notes & Version Manager
 
 Run via:
     python3 test_suite.py

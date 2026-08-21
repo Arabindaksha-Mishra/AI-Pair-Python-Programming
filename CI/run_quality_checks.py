@@ -88,7 +88,7 @@ def run_all_ci_checks() -> int:
             [sys.executable, "CI/check_line_length.py"],
         ),
         (
-            "Release Notes (RN.json) Schema Validation",
+            "Release Notes (release_notes.json) Schema Validation",
             [sys.executable, "CI/validate_release_notes.py"],
         ),
         (
