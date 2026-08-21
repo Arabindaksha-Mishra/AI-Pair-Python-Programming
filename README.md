@@ -1,6 +1,6 @@
 # 🚀 AI Pair Python Programming — Capstone & Senior Suite
 
-> **Automated Data Quality Remediation & Senior Python Engineering Solutions**  
+> **AI-Powered Data Cleaning Assistant & Senior Python Engineering Solutions**  
 > Python 3.12+ Standard Library | Zero External Dependencies  
 > **100% CI Quality Gate Pass** | **48 Unit & Integration Tests** | **AST Validated**
 
@@ -94,62 +94,7 @@ The pipeline executes a deterministic 4-stage data remediation workflow:
 
 ---
 
-## 2. Task 1: Senior Python Exercises (7 Question Sets)
-
-The repository provides comprehensive, fully tested standard library implementations
-for the 7 foundational Senior Python Exercise questions in
-`src/ai_pair_programming/exercises/`:
-
-### 2.1 Question 1: Unique Elements & Deduplication (`unique_elements.py`)
-- **`unique_elements(items)`**: Performs $\mathcal{O}(N)$ order-preserving list
-  deduplication without altering element sequence.
-- **`set_union_and_difference(set_a, set_b)`**: Demonstrates set algebra by returning
-  the mathematical union ($A \cup B$) and difference ($A \setminus B$).
-
-### 2.2 Question 2: Perfect Number Validation (`perfect_number.py`)
-- **`is_perfect_number(n)`**: Efficient $\mathcal{O}(\sqrt{N})$ square-root factor
-  summation algorithm to verify if a positive integer equals the sum of its proper
-  divisors (e.g., $6 = 1 + 2 + 3$, $28 = 1 + 2 + 4 + 7 + 14$).
-- **`find_perfect_numbers_in_range(start, end)`**: Discovers all perfect numbers
-  bounded within an arbitrary numeric interval.
-
-### 2.3 Question 3: Digit Extremes & Difference (`digit_difference.py`)
-- **`digit_difference(number)`**: Computes the numerical difference between the
-  maximum and minimum integer permutations formed by the digits of a number
-  (e.g., input `2149` $\to 9421 - 1249 = 8172$).
-- **`get_digit_extremes(number)`**: Returns the maximum and minimum permutations.
-
-### 2.4 Question 4: Fibonacci Sequence Implementations (`fibonacci_series.py`)
-- **`fibonacci_iterative(n)`**: Generates first $n$ Fibonacci numbers in
-  $\mathcal{O}(N)$ time and $\mathcal{O}(N)$ space.
-- **`fibonacci_recursive(n)`**: Computes $n$-th Fibonacci value using memoization.
-- **`fibonacci_generator(limit)`**: Memory-efficient generator yielding Fibonacci
-  values lazily with $\mathcal{O}(1)$ auxiliary space.
-
-### 2.5 Question 5: Anagram Detection & Frequency Matching (`anagram_solver.py`)
-- **`are_anagrams_sorted(str1, str2)`**: Canonical character sorting with case
-  insensitivity and whitespace stripping.
-- **`are_anagrams_frequency(str1, str2)`**: Linear $\mathcal{O}(N)$ character frequency
-  counting algorithm using hash maps.
-- **`explain_anagram(str1, str2)`**: Generates human-readable anagram audit reports.
-
-### 2.6 Question 6: Movie Ticket Age-Tiered Pricing (`movie_tickets.py`)
-- **`calculate_movie_ticket_price(age)`**: Tiered price calculation function
-  (Age $< 3$: Free `$0.00`, Age $3\text{--}12$: `$10.00`, Age $> 12$: `$15.00`).
-- **`movie_tickets_repl()`**: Interactive terminal console loop supporting 'quit'
-  sentinels and graceful input validation.
-
-### 2.7 Question 7: Interactive Loops & Pizza Statements (`interactive_loops.py`)
-- **`pizza_toppings_repl()`**: Interactive `while True` loop prompting for toppings
-  until the `'quit'` sentinel is entered.
-- **`square_even_continue_loop(numbers)`**: Loops through integers, skipping odd
-  values via `continue` and returning squares of even values.
-- **`format_pizza_statements(pizzas)`**: Generates templated descriptive sentences
-  using idiomatic list comprehension.
-
----
-
-## 3. Before & After Pipeline Transformation
+## 2. Before & After Pipeline Transformation
 
 ### Raw Input Matrix (Dirty E-Commerce / House Price Dataset)
 | ID | Area (sqft) | Price (Raw) | Sale Date | Status |
@@ -171,7 +116,7 @@ capped to upper fence 3200).*
 
 ---
 
-## 4. Directory & Package Architecture
+## 3. Directory & Package Architecture
 
 ```text
 AI-Pair-Python-Programming/
@@ -179,7 +124,7 @@ AI-Pair-Python-Programming/
 ├── tests.py                         # Master Modular Test Suite Runner (48 Tests)
 ├── pyproject.toml                   # Packaging & Tooling Config (Ruff / uv)
 ├── release_notes.json               # Enterprise Change Tracking Database
-├── README.md                        # Task 1 & 2 Engineering Specification
+├── README.md                        # Project Architecture Specification
 ├── CI/                              # Continuous Integration Quality Gates
 │   ├── run_quality_checks.py        # Master CI Pipeline Runner
 │   ├── check_line_length.py         # 88-Column Line Width Checker
@@ -230,7 +175,7 @@ AI-Pair-Python-Programming/
 
 ---
 
-## 5. Programmatic API Usage Example
+## 4. Programmatic API Usage Example
 
 ```python
 from ai_pair_programming import (
@@ -269,9 +214,9 @@ print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 
 ---
 
-## 6. Domain Models, Constants & Exceptions
+## 5. Domain Models, Constants & Exceptions
 
-### 6.1 Dataclass Models (`models.py`)
+### 5.1 Dataclass Models (`models.py`)
 - `PrimitiveValue`: `str | int | float | bool | None` scalar union type.
 - `RawCellValue`: `object` unvalidated input representation.
 - `CastResult`: `tuple[PrimitiveValue, str]` (value, type_name) tuple.
@@ -281,7 +226,7 @@ print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 - `CleaningConfig`: Pipeline configuration dataclass.
 - `ReleaseRecord`: Version tracking model for `release_notes.json`.
 
-### 6.2 Central Constants (`constants.py`)
+### 5.2 Central Constants (`constants.py`)
 - `DEFAULT_IQR_FACTOR`: `1.5`
 - `DEFAULT_Z_SCORE_THRESHOLD`: `3.0`
 - `DEFAULT_NUMERIC_IMPUTE_STRATEGY`: `"median"`
@@ -290,7 +235,7 @@ print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 - `SUPPORTED_DATE_FORMATS`: `("%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%Y/%m/%d")`
 - `MAX_LINE_LENGTH`: `88`
 
-### 6.3 Domain Exceptions (`exceptions.py`)
+### 5.3 Domain Exceptions (`exceptions.py`)
 ```text
 AIPairProgrammingError (Base Exception)
 ├── DataCleanerError (Capstone Errors)
@@ -300,6 +245,28 @@ AIPairProgrammingError (Base Exception)
 └── VersionManagerError (Versioning Errors)
     └── ReleaseNotesSchemaError
 ```
+
+---
+
+## 6. Task 1: Senior Python Exercises (7 Modules)
+
+Compact implementations of the 7 senior Python algorithms in
+`src/ai_pair_programming/exercises/`:
+
+- **Q1: Unique Elements** (`unique_elements.py`): Order-preserving list
+  deduplication (`unique_elements`) and mathematical set algebra.
+- **Q2: Perfect Numbers** (`perfect_number.py`): $\mathcal{O}(\sqrt{N})$ proper
+  divisor summation (`is_perfect_number`) and range search.
+- **Q3: Digit Difference** (`digit_difference.py`): Max-min digit permutation
+  difference (`digit_difference`) and extreme digit discovery.
+- **Q4: Fibonacci Series** (`fibonacci_series.py`): Iterative, memoized
+  recursive, and lazy generator sequence implementations.
+- **Q5: Anagram Solver** (`anagram_solver.py`): Canonical character sorting and
+  $\mathcal{O}(N)$ frequency map verification.
+- **Q6: Movie Tickets** (`movie_tickets.py`): Age-tiered ticket pricing matrix
+  and interactive terminal REPL loop.
+- **Q7: Interactive Loops** (`interactive_loops.py`): Infinite while loop with
+  sentinel condition and `continue` loop filtering.
 
 ---
 
