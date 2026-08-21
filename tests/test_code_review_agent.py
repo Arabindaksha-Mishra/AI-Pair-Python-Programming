@@ -134,6 +134,35 @@ class TestCodeReviewAgent(unittest.TestCase):
         ]
         self.assertTrue(len(style_findings) >= 2)
 
+    def test_detect_insecure_mktemp(self) -> None:
+        """Verify detection of SEC-005 tempfile.mktemp race condition."""
+        test_file = os.path.join(self.temp_dir.name, "bad_temp.py")
+        with open(test_file, "w", encoding="utf-8") as f:
+            f.write(
+                "import tempfile\n\n"
+                "def make_temp() -> str:\n"
+                '    """Make temp."""\n'
+                "    return tempfile.mktemp()\n"
+            )
+
+        self.agent.analyze_file(test_file)
+        sec_findings = [f for f in self.agent.findings if f.rule_id == "SEC-005"]
+        self.assertTrue(len(sec_findings) >= 1)
+
+    def test_detect_primitive_identity_comparison(self) -> None:
+        """Verify detection of BUG-005 primitive literal identity comparison."""
+        test_file = os.path.join(self.temp_dir.name, "bad_compare.py")
+        with open(test_file, "w", encoding="utf-8") as f:
+            f.write(
+                "def check_status(val: str) -> bool:\n"
+                '    """Check status."""\n'
+                '    return val is "active"\n'
+            )
+
+        self.agent.analyze_file(test_file)
+        bug_findings = [f for f in self.agent.findings if f.rule_id == "BUG-005"]
+        self.assertTrue(len(bug_findings) >= 1)
+
     def test_clean_file_passes(self) -> None:
         """
         Verify clean, defect-free files pass with zero findings.

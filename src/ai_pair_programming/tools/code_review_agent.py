@@ -211,6 +211,32 @@ class SecurityASTVisitor(ast.NodeVisitor):
                             )
                         )
 
+    def _check_tempfile_mktemp(self, node: ast.Call, func_name: str) -> None:
+        """Detect insecure tempfile.mktemp() usage."""
+        if (
+            func_name == "mktemp"
+            and isinstance(node.func, ast.Attribute)
+            and isinstance(node.func.value, ast.Name)
+            and node.func.value.id == "tempfile"
+        ):
+            self.findings.append(
+                ReviewFinding(
+                    file_path=self.file_path,
+                    line_number=node.lineno,
+                    severity=Severity.HIGH,
+                    category="Insecure Temporary File",
+                    rule_id="SEC-005",
+                    message=(
+                        "Insecure tempfile.mktemp() call has a known "
+                        "race condition vulnerability."
+                    ),
+                    snippet=self._get_line_snippet(node.lineno),
+                    remediation=(
+                        "Use tempfile.NamedTemporaryFile() or TemporaryDirectory()."
+                    ),
+                )
+            )
+
     def visit_Call(self, node: ast.Call) -> None:
         """
         Inspect function and method calls for security risks.
@@ -231,6 +257,7 @@ class SecurityASTVisitor(ast.NodeVisitor):
         self._check_eval_exec(node, func_name)
         self._check_deserialization(node, func_name)
         self._check_subprocess_shell(node, func_name)
+        self._check_tempfile_mktemp(node, func_name)
         self.generic_visit(node)
 
     def _check_type_annotations(self, node: ast.FunctionDef) -> None:
@@ -393,6 +420,34 @@ class SecurityASTVisitor(ast.NodeVisitor):
                     ),
                 )
             )
+        self.generic_visit(node)
+
+    def visit_Compare(self, node: ast.Compare) -> None:
+        """Inspect comparison expressions for literal identity bugs."""
+        for op, comparator in zip(node.ops, node.comparators, strict=False):
+            if isinstance(op, (ast.Is, ast.IsNot)) and isinstance(
+                comparator, ast.Constant
+            ):
+                if comparator.value in (None, True, False):
+                    continue
+                self.findings.append(
+                    ReviewFinding(
+                        file_path=self.file_path,
+                        line_number=node.lineno,
+                        severity=Severity.MEDIUM,
+                        category="Defective Comparison",
+                        rule_id="BUG-005",
+                        message=(
+                            "Identity comparison ('is'/'is not') used against "
+                            "a primitive literal."
+                        ),
+                        snippet=self._get_line_snippet(node.lineno),
+                        remediation=(
+                            "Use equality operators ('==' or '!=') instead "
+                            "of identity operators."
+                        ),
+                    )
+                )
         self.generic_visit(node)
 
     def visit_Assert(self, node: ast.Assert) -> None:
