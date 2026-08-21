@@ -29,6 +29,7 @@ EXCLUDED_EXTENSIONS: set[str] = {
     ".jpeg",
     ".ico",
     ".gif",
+    ".pdf",
 }
 
 

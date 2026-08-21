@@ -67,23 +67,20 @@ AI-Pair-Python-Programming/
 │       ├── 📡 telemetry/        # Structured Logging & File Rotation
 │       │   ├── __init__.py          # Re-exports OutputHandler & get_logger
 │       │   └── output_handler.py    # 1-Hour Rotating Handler Engine
-│       ├── 🧩 algorithms/       # Senior Domain Algorithms
-│       │   ├── collections_ops.py   # Group 1: Unique & Sets
-│       │   ├── numeric_math.py      # Group 2: Math & Series
-│       │   ├── string_utils.py      # Group 3: Strings & NLP
-│       │   └── interactive_loops.py # Group 4: Loops & Sentinels
+│       ├── 🧩 exercises/        # Task 1: Python Exercises for Senior Engineers
+│       │   ├── unique_elements.py   # Q1 & Q10: Unique & Set Ops
+│       │   ├── perfect_number.py    # Q2: Perfect Numbers
+│       │   ├── digit_difference.py  # Q3: Digit Permutation Diff
+│       │   ├── fibonacci_series.py  # Q4: Fibonacci Generator
+│       │   ├── movie_tickets.py     # Q5: Ticket Pricing REPL
+│       │   ├── interactive_loops.py # Q6: Sentinels & Loops
+│       │   └── anagram_solver.py    # Q7: Anagram Solver
 │       │
-│       ├── ⚙️ data_transformer/ # Reusable Transformation Package
-│       │   ├── sanitizer.py         # Currency & Type Casting
-│       │   ├── deduplicator.py      # List & Table Deduplication
-│       │   ├── imputer.py           # Statistical Imputation
-│       │   ├── outlier_handler.py   # IQR Fences & Winsorization
-│       │   └── io_utils.py          # Safe CSV File I/O
-│       │
-│       ├── 🧹 data_cleaner/     # Capstone Data Cleaning Assistant
+│       ├── 🧹 capstone/         # Task 2: AI-Powered Data Cleaning Assistant
 │       │   ├── cleaner_engine.py    # Pipeline Orchestrator
 │       │   ├── reporter.py          # Terminal & Markdown Reporter
 │       │   ├── main.py              # Interactive Cleaner CLI
+│       │   ├── transformer/         # Sanitizer, Imputer, Outliers, I/O
 │       │   └── datasets/            # Sample Dirty CSVs
 │       │
 │       └── 🛠️ tools/            # Security & Versioning Tools

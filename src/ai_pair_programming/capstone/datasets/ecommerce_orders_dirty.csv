@@ -1,0 +1,11 @@
+order_id,customer_name,email,order_date,item_category,quantity,unit_price,status
+ORD-001,John Doe,john@example.com,2023-01-15,Electronics,1,"$299.99",Completed
+ORD-002,Alice Smith,alice@test.org,2023-01-16,Apparel,2,"$49.50",Completed
+ORD-003,Bob Johnson,,2023-01-16,Electronics,1,"$599.00",Pending
+ORD-004,Charlie Brown,charlie@peanuts.com,2023/01/17,Home,5,"$15.20",Completed
+ORD-005,John Doe,john@example.com,2023-01-15,Electronics,1,"$299.99",Completed
+ORD-006,Eve Wilson,eve@crypto.io,2023-01-18,Electronics,50000,"$1,200.00",Completed
+ORD-007,Frank Castle,frank@marvel.com,18-01-2023,Apparel,3,"$85.00",Refunded
+ORD-008,Grace Hopper,grace@navy.mil,2023-01-19,Electronics,2,"N/A",Completed
+ORD-009,Heidi Klum,heidi@fashion.de,2023-01-20,Apparel,-4,"$110.00",Cancelled
+ORD-010,John Doe,john@example.com,2023-01-15,Electronics,1,"$299.99",Completed

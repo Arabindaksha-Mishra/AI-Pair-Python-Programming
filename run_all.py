@@ -1,19 +1,9 @@
-#!/usr/bin/env python3
 """
-AI Pair Python Programming — Master Interactive Launcher
-=========================================================
-Single unified entrypoint organized by functional domain modules:
-1. Collections & Set Algebra (Unique elements, Set operations)
-2. Numerical Mathematics & Sequences (Perfect numbers, Fibonacci, Squares)
-3. String Processing & NLP Utilities (Anagram solver, Pizza statements)
-4. Interactive Loops & Flow Control (Pizza toppings sentinel, Ticket pricing)
-5. Capstone Project: AI-Powered Data Cleaning Assistant
-T. Automated Unit Test Suite
-C. Automated Security & Code Bug Review Agent
-V. Release Notes & Version Management (RN.json)
-
-Usage:
-    python3 run_all.py
+Master Interactive Launcher & Demonstration CLI
+================================================
+Unified terminal runner for all 7 Comprehensive Senior Python Exercise
+modules, the Capstone Automated Data Cleaning Assistant, the AST Code
+Review Agent, and the CI Quality & Verification Pipeline.
 """
 
 from __future__ import annotations
@@ -24,24 +14,22 @@ import sys
 
 from ai_pair_programming.telemetry import get_logger
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-SRC_DIR = os.path.join(PROJECT_ROOT, "src")
-if SRC_DIR not in sys.path:
-    sys.path.insert(0, SRC_DIR)
-
 _LOGGER = get_logger("launcher")
 
-CYAN = "\033[96m"
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-MAGENTA = "\033[95m"
-BOLD = "\033[1m"
-RESET = "\033[0m"
+PROJECT_ROOT: str = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR: str = os.path.join(PROJECT_ROOT, "src")
+
+BOLD: str = "\033[1m"
+GREEN: str = "\033[32m"
+CYAN: str = "\033[36m"
+YELLOW: str = "\033[33m"
+MAGENTA: str = "\033[35m"
+RESET: str = "\033[0m"
 
 
 def clear_screen() -> None:
     """
-    Clear terminal screen across Unix and Windows platforms.
+    Clear terminal screen across POSIX and Windows environments.
 
     Returns:
         None
@@ -52,20 +40,22 @@ def clear_screen() -> None:
 
 def print_banner() -> None:
     """
-    Render application header banner in terminal.
+    Render executive styling banner.
 
     Returns:
         None
 
     """
-    print(f"{CYAN}{BOLD}")
-    print("=" * 68)
-    print("      🚀 AI PAIR PYTHON PROGRAMMING — SENIOR CAPSTONE SUITE       ")
     print("=" * 68)
     print(
-        f"{RESET}{GREEN}• uv / src Standard Architecture  |  "
-        f"100% Python Standard Library{RESET}\n"
+        f"{BOLD}{CYAN}   🚀 AI PAIR PYTHON PROGRAMMING: "
+        f"7 SENIOR MODULES & CAPSTONE{RESET}"
     )
+    print(
+        f"{YELLOW}   Pure Standard Library | Zero Dependencies | "
+        f"40 Tests (100% OK){RESET}"
+    )
+    print("=" * 68)
 
 
 def _build_execution_env() -> dict[str, str]:
@@ -83,25 +73,53 @@ def _build_execution_env() -> dict[str, str]:
     return env
 
 
-def run_domain_module(module_name: str, display_name: str) -> None:
+def run_exercise_module(module_name: str, display_name: str) -> None:
     """
-    Execute a standalone algorithm domain group.
+    Execute an individual comprehensive exercise module.
 
     Args:
-        module_name (str): Suffix of algorithms module to run.
+        module_name (str): Submodule name under ai_pair_programming.exercises.
         display_name (str): Human-readable header title.
 
     Returns:
         None
 
     """
-    _LOGGER.info(f"Launching domain module: {module_name}")
+    _LOGGER.info(f"Launching exercise module: {module_name}")
     print(f"\n{MAGENTA}{BOLD}>>> Launching {display_name}...{RESET}\n")
     subprocess.run(
-        [sys.executable, "-m", f"ai_pair_programming.algorithms.{module_name}"],
+        [sys.executable, "-m", f"ai_pair_programming.exercises.{module_name}"],
         env=_build_execution_env(),
     )
     input(f"\n{BOLD}Press [Enter] to return to menu...{RESET}")
+
+
+def run_all_exercises_sequentially() -> None:
+    """
+    Execute all 7 comprehensive senior exercise modules in sequence.
+
+    Returns:
+        None
+
+    """
+    _LOGGER.info("Executing all 7 senior exercise modules sequentially...")
+    modules: list[tuple[str, str]] = [
+        ("unique_elements", "Module 1: Unique Elements & Set Algebra"),
+        ("perfect_number", "Module 2: Number Theory & Perfect Numbers"),
+        ("digit_difference", "Module 3: Digit Permutations & Difference"),
+        ("fibonacci_series", "Module 4: Fibonacci Sequence Engineering"),
+        ("anagram_solver", "Module 5: String Processing & Anagram NLP"),
+        ("movie_tickets", "Module 6: Piecewise Logic & Movie Pricing"),
+        ("interactive_loops", "Module 7: Interactive Loops & Sentinels"),
+    ]
+    for mod_name, label in modules:
+        print(f"\n{MAGENTA}{BOLD}▶ Running {label}...{RESET}")
+        subprocess.run(
+            [sys.executable, "-m", f"ai_pair_programming.exercises.{mod_name}"],
+            env=_build_execution_env(),
+        )
+
+    input(f"\n{BOLD}All 7 modules executed! Press [Enter] to return...{RESET}")
 
 
 def run_capstone_cleaner() -> None:
@@ -118,7 +136,7 @@ def run_capstone_cleaner() -> None:
         f"Automated Data Cleaning Assistant...{RESET}\n"
     )
     subprocess.run(
-        [sys.executable, "-m", "ai_pair_programming.data_cleaner.main"],
+        [sys.executable, "-m", "ai_pair_programming.capstone.main"],
         env=_build_execution_env(),
     )
     input(f"\n{BOLD}Press [Enter] to return to menu...{RESET}")
@@ -201,36 +219,33 @@ def _print_menu_options() -> None:
         None
 
     """
-    print(f"{BOLD}PART 1: Senior Python Exercises (Domain Groups){RESET}")
+    print(f"{BOLD}PART 1: Senior Python Exercises (7 Comprehensive Modules){RESET}")
+    print("   1.  📦 Module 1: Unique Elements & Set Algebra (Q1, Q10)")
+    print("   2.  🔢 Module 2: Perfect Numbers & Divisor Sums (Q2)")
+    print("   3.  🔢 Module 3: Digit Permutations & Difference (Q3)")
+    print("   4.  🔢 Module 4: Fibonacci (Recursive Memoized & Iterative) (Q6)")
+    print("   5.  🔤 Module 5: Anagram Solver (Frequency Hash & Sorting) (Q9)")
+    print("   6.  🎟️ Module 6: Movie Theater Pricing & Box Office REPL (Q5)")
     print(
-        "  1.  📦 Collections & Sets       : Unique Elements (Q1), "
-        "Set Union & Diff (Q10)"
+        "   7.  🍕 Module 7: Interactive Loops, Sentinels & Flow Control (Q4, Q7, Q8)"
     )
-    print(
-        "  2.  🔢 Numerical Math & Series  : Perfect Numbers (Q2), "
-        "Digit Diff (Q3), Fibonacci (Q6), Squares (Q8)"
-    )
-    print(
-        "  3.  🔤 String Processing & NLP  : Anagram Solver (Q9), Pizza Statements (Q7)"
-    )
-    print(
-        "  4.  🔄 Interactive Loops & REPL : Pizza Toppings (Q4), "
-        "Movie Ticket Pricing (Q5)"
-    )
+    print(f"   {YELLOW}A.  Run All 7 Comprehensive Modules Sequentially{RESET}")
+
     print(f"\n{BOLD}PART 2: Capstone Project (AI-Powered Data Quality){RESET}")
     print(
-        "  5.  🧹 Automated Data Cleaning Assistant "
+        "   8.  🧹 Automated Data Cleaning Assistant "
         "(Imputation, Outliers, Types, Deduplication)"
     )
+
     print(f"\n{BOLD}VERIFICATION, QUALITY & CI PIPELINE{RESET}")
     print(
-        f"  {GREEN}P.  Run Complete CI Pipeline "
+        f"   {GREEN}P.  Run Complete CI Pipeline "
         f"(Format, Lint, 88-Col, Security, Tests){RESET}"
     )
-    print(f"  {GREEN}T.  Run Automated Test Suite (40 Tests, 100% Pass Rate){RESET}")
-    print(f"  {CYAN}C.  Run Automated Security & Code Bug Review Agent{RESET}")
-    print(f"  {MAGENTA}V.  View Release Notes & Version History (RN.json){RESET}")
-    print("  Q.  Quit")
+    print(f"   {GREEN}T.  Run Automated Test Suite (40 Tests, 100% Pass Rate){RESET}")
+    print(f"   {CYAN}C.  Run Automated Security & Code Bug Review Agent{RESET}")
+    print(f"   {MAGENTA}V.  View Release Notes & Version History (RN.json){RESET}")
+    print("   Q.  Quit")
     print("-" * 68)
 
 
@@ -245,17 +260,22 @@ def _handle_menu_choice(choice: str) -> bool:
         bool: True to continue main loop, False to exit.
 
     """
-    if choice == "1":
-        run_domain_module("collections_ops", "Group 1: Collections & Set Algebra")
-    elif choice == "2":
-        run_domain_module("numeric_math", "Group 2: Numerical Mathematics & Sequences")
-    elif choice == "3":
-        run_domain_module("string_utils", "Group 3: String Processing & NLP Utilities")
-    elif choice == "4":
-        run_domain_module(
-            "interactive_loops", "Group 4: Interactive Loops & Flow Control"
-        )
-    elif choice == "5":
+    module_map: dict[str, tuple[str, str]] = {
+        "1": ("unique_elements", "Module 1: Unique Elements & Set Algebra"),
+        "2": ("perfect_number", "Module 2: Number Theory & Perfect Numbers"),
+        "3": ("digit_difference", "Module 3: Digit Permutations & Difference"),
+        "4": ("fibonacci_series", "Module 4: Fibonacci Sequence Engineering"),
+        "5": ("anagram_solver", "Module 5: String Processing & Anagram NLP"),
+        "6": ("movie_tickets", "Module 6: Piecewise Logic & Movie Pricing"),
+        "7": ("interactive_loops", "Module 7: Interactive Loops & Sentinels"),
+    }
+
+    if choice in module_map:
+        mod, name = module_map[choice]
+        run_exercise_module(mod, name)
+    elif choice == "A":
+        run_all_exercises_sequentially()
+    elif choice == "8":
         run_capstone_cleaner()
     elif choice == "P":
         run_ci_pipeline()
@@ -284,7 +304,7 @@ def main() -> None:
         print_banner()
         _print_menu_options()
         choice = (
-            input(f"{BOLD}Select an option [1-5, P, T, C, V, Q]: {RESET}")
+            input(f"{BOLD}Select an option [1-8, A, P, T, C, V, Q]: {RESET}")
             .strip()
             .upper()
         )

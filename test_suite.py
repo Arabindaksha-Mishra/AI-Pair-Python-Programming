@@ -3,7 +3,7 @@
 Master Automated Test Suite (uv / src Standard)
 ===============================================
 Unified runner executing all modular test suites:
-- tests/test_algorithms.py        : Part 1 — Domain Groups 1 to 4
+- tests/test_exercises.py         : Task 1 — Senior Python Exercises
 - tests/test_data_transformer.py  : Core Reusable Data Transformer Package
 - tests/test_data_cleaner.py      : Part 2 — Automated Data Cleaning Assistant
 - tests/test_output_handler.py    : Centralized Logging & Telemetry Engine
@@ -25,11 +25,11 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
 
-from tests.test_algorithms import TestSeniorAlgorithms
 from tests.test_code_review_agent import TestCodeReviewAgent
 from tests.test_data_cleaner import TestDataCleaningAssistant
 from tests.test_data_transformer import TestDataTransformer
 from tests.test_e2e import TestDataCleaningPipelineE2E
+from tests.test_exercises import TestSeniorExercises
 from tests.test_output_handler import TestOutputHandler
 from tests.test_version_manager import TestVersionManager
 
@@ -45,7 +45,7 @@ def run_all_tests() -> unittest.TestResult:
     loader = unittest.TestLoader()
     suite = unittest.TestSuite()
 
-    suite.addTests(loader.loadTestsFromTestCase(TestSeniorAlgorithms))
+    suite.addTests(loader.loadTestsFromTestCase(TestSeniorExercises))
     suite.addTests(loader.loadTestsFromTestCase(TestDataTransformer))
     suite.addTests(loader.loadTestsFromTestCase(TestDataCleaningAssistant))
     suite.addTests(loader.loadTestsFromTestCase(TestOutputHandler))
