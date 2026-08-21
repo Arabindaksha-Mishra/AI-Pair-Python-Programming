@@ -101,7 +101,7 @@ def run_all_ci_checks() -> int:
         ),
         (
             "Master Unit & Integration Test Suite (40 Tests)",
-            [sys.executable, "test_suite.py"],
+            [sys.executable, "tests.py"],
         ),
     ]
 

@@ -10,7 +10,7 @@ centralized hourly rotating logging, and `release_notes.json` release notes mana
 
 ### 1. Launch Master Interactive Menu
 ```bash
-python3 run_all.py
+python3 main.py
 ```
 *(Opens interactive launcher for domain algorithms, cleaner, and tools)*
 
@@ -27,7 +27,7 @@ python3 -m ai_pair_programming.tools.code_review_agent
 
 ### 4. Run All Automated Tests (40 Tests)
 ```bash
-python3 test_suite.py
+python3 tests.py
 # or
 python3 -m unittest discover tests
 ```
@@ -39,12 +39,12 @@ python3 -m unittest discover tests
 
 ```text
 AI-Pair-Python-Programming/
-├── release_notes.json                      # 📋 Release Notes & Version Specification
+├── main.py                      # Master interactive application launcher
+├── tests.py                     # Master automated test runner
+├── release_notes.json           # 📋 Release Notes & Version Specification
 ├── pyproject.toml               # PEP 621 / uv package configuration
 ├── README.md                    # Quickstart guide & documentation
 ├── requirements.txt             # Standard runtime requirements (0 deps)
-├── run_all.py                   # Master interactive launcher
-├── test_suite.py                # Master automated test runner
 │
 ├── 📁 logs/                     # 1-Hour Rotating Log Storage
 │   └── app.log                  # Active hourly rotated application log
@@ -147,7 +147,7 @@ python3 -m ai_pair_programming.data_cleaner.main /path/to/custom_data.csv
 
 ```bash
 # Master runner (All 40 tests passing)
-python3 test_suite.py
+python3 tests.py
 
 # Format and lint with Ruff
 ruff check .

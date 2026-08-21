@@ -12,7 +12,7 @@ Unified runner executing all modular test suites:
 - tests/test_version_manager.py   : release_notes.json Release Notes & Version Manager
 
 Run via:
-    python3 test_suite.py
+    python3 tests.py
     or
     python3 -m unittest discover tests
 """

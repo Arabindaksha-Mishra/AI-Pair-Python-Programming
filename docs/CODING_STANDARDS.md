@@ -119,7 +119,7 @@ def is_empty_string_or_none(data: str) -> bool:
 * **Abstract Collections:** Import `Iterable`, `Generator` from `collections.abc`.
 * **Dataclasses:** Use `@dataclass(slots=True)` for pure data objects.
 * **Single-Step Tooling:**
-  - Automated tests: `python3 test_suite.py` (1 command, 100% pass).
+  - Automated tests: `python3 tests.py` (1 command, 100% pass).
   - Code review scan: `python3 -m ai_pair_programming.tools.code_review_agent`.
   - Strict Formatter: `ruff check --fix . && ruff format .` (1 command).
 
@@ -148,5 +148,5 @@ Before committing or submitting any code:
 - [ ] Are all function argument counts $\le 3$?
 - [ ] Are boolean selector / flag arguments eliminated?
 - [ ] Are all magic numbers replaced with named constants?
-- [ ] Do unit tests pass with 100% coverage via `python3 test_suite.py`?
+- [ ] Do unit tests pass with 100% coverage via `python3 tests.py`?
 - [ ] Does the AST security scanner report 0 findings?

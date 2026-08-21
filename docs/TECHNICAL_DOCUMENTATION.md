@@ -33,8 +33,8 @@ AI-Pair-Python-Programming/
 ├── pyproject.toml               # PEP 621 / uv package configuration
 ├── README.md                    # Quickstart guide & documentation
 ├── requirements.txt             # Standard runtime requirements (0 deps)
-├── run_all.py                   # Master interactive terminal launcher
-├── test_suite.py                # Master automated test suite runner
+├── main.py                      # Master interactive application launcher
+├── tests.py                     # Master automated test runner
 │
 ├── logs/                        # 1-Hour Rotating Log Storage
 │   └── app.log                  # Active hourly rotated application log
@@ -96,7 +96,7 @@ AI-Pair-Python-Programming/
 
 ### 1. Run Master Test Suite
 ```bash
-python3 test_suite.py
+python3 tests.py
 ```
 
 ### 2. Run Static Security & Code Bug Review Agent
@@ -106,7 +106,7 @@ python3 -m ai_pair_programming.tools.code_review_agent
 
 ### 3. Launch Master Interactive Menu
 ```bash
-python3 run_all.py
+python3 main.py
 ```
 
 ### 4. Clean Any External CSV Dataset
