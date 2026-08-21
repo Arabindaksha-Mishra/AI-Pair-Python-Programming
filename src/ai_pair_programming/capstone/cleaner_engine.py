@@ -109,16 +109,7 @@ class DataCleaningAssistant:
         save_csv_file(file_path, headers, rows)
 
     def sanitize_value(self, val: RawCellValue) -> PrimitiveValue:
-        """
-        Sanitize raw string values into typed native representations.
-
-        Args:
-            val (RawCellValue): Raw cell value.
-
-        Returns:
-            PrimitiveValue: Cleaned and typed cell representation.
-
-        """
+        """Sanitize raw string values into typed native representations."""
         casted_val, _ = infer_and_cast_value(val)
         return casted_val
 
