@@ -9,23 +9,20 @@ from __future__ import annotations
 
 import datetime
 import re
-from typing import Any
 
+from ai_pair_programming.constants import NULL_STRINGS
+from ai_pair_programming.models import CastResult, RawCellValue
 from ai_pair_programming.telemetry import get_logger
 
 _LOGGER = get_logger("data_transformer.sanitizer")
 
-NULL_STRINGS: frozenset[str] = frozenset(
-    {"", "n/a", "na", "null", "none", "nan", "-999", "?", "nil", "undefined"}
-)
 
-
-def is_null_token(val: Any) -> bool:
+def is_null_token(val: RawCellValue) -> bool:
     """
     Check if a given raw value represents a missing or null value.
 
     Args:
-        val (Any): Target value to inspect.
+        val (RawCellValue): Target value to inspect.
 
     Returns:
         bool: True if val is None or matches known null string tokens.
@@ -127,7 +124,7 @@ def normalize_date(val: str) -> str | None:
     return None
 
 
-def _try_parse_currency(s: str) -> tuple[Any, str] | None:
+def _try_parse_currency(s: str) -> CastResult | None:
     """
     Attempt to parse string as currency or financial number.
 
@@ -135,7 +132,7 @@ def _try_parse_currency(s: str) -> tuple[Any, str] | None:
         s (str): String representation.
 
     Returns:
-        tuple[Any, str] | None: (parsed_value, type_name) if matched.
+        CastResult | None: (parsed_value, type_name) if matched.
 
     """
     if re.search(r"[\$,€,£,¥]", s) or re.match(r"^\(?-?[\d,]+(\.\d+)?\)?$", s):
@@ -145,7 +142,7 @@ def _try_parse_currency(s: str) -> tuple[Any, str] | None:
     return None
 
 
-def _try_parse_date(s: str) -> tuple[Any, str] | None:
+def _try_parse_date(s: str) -> CastResult | None:
     """
     Attempt to parse string as standardized ISO date.
 
@@ -153,7 +150,7 @@ def _try_parse_date(s: str) -> tuple[Any, str] | None:
         s (str): String representation.
 
     Returns:
-        tuple[Any, str] | None: (iso_date_string, 'date') if matched.
+        CastResult | None: (iso_date_string, 'date') if matched.
 
     """
     if re.match(r"^\d{2,4}[-/\.]\d{1,2}[-/\.]\d{1,4}$", s):
@@ -163,7 +160,7 @@ def _try_parse_date(s: str) -> tuple[Any, str] | None:
     return None
 
 
-def _try_parse_boolean(s: str) -> tuple[Any, str] | None:
+def _try_parse_boolean(s: str) -> CastResult | None:
     """
     Attempt to parse boolean token.
 
@@ -171,7 +168,7 @@ def _try_parse_boolean(s: str) -> tuple[Any, str] | None:
         s (str): String representation.
 
     Returns:
-        tuple[Any, str] | None: (bool_value, 'bool') if matched.
+        CastResult | None: (bool_value, 'bool') if matched.
 
     """
     lower = s.lower()
@@ -182,7 +179,7 @@ def _try_parse_boolean(s: str) -> tuple[Any, str] | None:
     return None
 
 
-def _try_parse_numeric(s: str) -> tuple[Any, str] | None:
+def _try_parse_numeric(s: str) -> CastResult | None:
     """
     Attempt to cast string into float or integer.
 
@@ -190,7 +187,7 @@ def _try_parse_numeric(s: str) -> tuple[Any, str] | None:
         s (str): String representation.
 
     Returns:
-        tuple[Any, str] | None: (numeric_value, 'float' | 'int') if matched.
+        CastResult | None: (numeric_value, 'float' | 'int') if matched.
 
     """
     try:
@@ -201,15 +198,15 @@ def _try_parse_numeric(s: str) -> tuple[Any, str] | None:
         return None
 
 
-def infer_and_cast_value(val: Any) -> tuple[Any, str]:
+def infer_and_cast_value(val: RawCellValue) -> CastResult:
     """
     Infer the native data type and cast raw value accordingly.
 
     Args:
-        val (Any): Raw value to inspect and cast.
+        val (RawCellValue): Raw value to inspect and cast.
 
     Returns:
-        tuple[Any, str]: (casted_value, inferred_type_name).
+        CastResult: (casted_value, inferred_type_name) tuple.
 
     """
     if is_null_token(val):

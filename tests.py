@@ -26,10 +26,12 @@ import unittest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
 
 from tests.test_code_review_agent import TestCodeReviewAgent
+from tests.test_constants_exceptions import TestConstantsAndExceptions
 from tests.test_data_cleaner import TestDataCleaningAssistant
 from tests.test_data_transformer import TestDataTransformer
 from tests.test_e2e import TestDataCleaningPipelineE2E
 from tests.test_exercises import TestSeniorExercises
+from tests.test_models import TestDataModels
 from tests.test_output_handler import TestOutputHandler
 from tests.test_version_manager import TestVersionManager
 
@@ -52,6 +54,8 @@ def run_all_tests() -> unittest.TestResult:
     suite.addTests(loader.loadTestsFromTestCase(TestDataCleaningPipelineE2E))
     suite.addTests(loader.loadTestsFromTestCase(TestCodeReviewAgent))
     suite.addTests(loader.loadTestsFromTestCase(TestVersionManager))
+    suite.addTests(loader.loadTestsFromTestCase(TestDataModels))
+    suite.addTests(loader.loadTestsFromTestCase(TestConstantsAndExceptions))
 
     runner = unittest.TextTestRunner(verbosity=2)
     return runner.run(suite)

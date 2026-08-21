@@ -53,7 +53,7 @@ def deduplicate_list(items: list[Any]) -> list[Any]:
         return _deduplicate_unhashables(items)
 
 
-def _extract_row_key(row: list[Any], key_idx: int | None) -> Any:
+def _extract_row_key(row: list[Any], key_idx: int | None) -> object:
     """
     Extract primary key cell or entire row tuple for uniqueness comparison.
 
@@ -62,7 +62,7 @@ def _extract_row_key(row: list[Any], key_idx: int | None) -> Any:
         key_idx (int | None): Column index of primary key if present.
 
     Returns:
-        Any: Distinct row identity key.
+        object: Distinct row identity key.
 
     """
     if key_idx is not None and key_idx < len(row):

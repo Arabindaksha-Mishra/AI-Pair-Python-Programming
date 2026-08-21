@@ -25,6 +25,7 @@ from ai_pair_programming.data_transformer.io_utils import (
 )
 from ai_pair_programming.data_transformer.outlier_handler import cap_matrix_outliers
 from ai_pair_programming.data_transformer.sanitizer import infer_and_cast_value
+from ai_pair_programming.models import PrimitiveValue, RawCellValue
 from ai_pair_programming.telemetry import OutputHandler, get_logger
 
 
@@ -107,15 +108,15 @@ class DataCleaningAssistant:
         self.logger.info(f"Saving cleaned dataset to: {file_path}")
         save_csv_file(file_path, headers, rows)
 
-    def sanitize_value(self, val: Any) -> Any:
+    def sanitize_value(self, val: RawCellValue) -> PrimitiveValue:
         """
         Sanitize raw string values into typed native representations.
 
         Args:
-            val (Any): Raw cell value.
+            val (RawCellValue): Raw cell value.
 
         Returns:
-            Any: Cleaned and typed cell representation.
+            PrimitiveValue: Cleaned and typed cell representation.
 
         """
         casted_val, _ = infer_and_cast_value(val)

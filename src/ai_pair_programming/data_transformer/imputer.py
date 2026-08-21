@@ -11,6 +11,7 @@ from __future__ import annotations
 import statistics
 from typing import Any
 
+from ai_pair_programming.models import PrimitiveValue
 from ai_pair_programming.telemetry import get_logger
 
 _LOGGER = get_logger("data_transformer.imputer")
@@ -63,7 +64,7 @@ def calculate_categorical_replacement(
         return valid_str_vals[0]
 
 
-def _calculate_column_replacement(values: list[Any], col_type: str) -> Any:
+def _calculate_column_replacement(values: list[Any], col_type: str) -> PrimitiveValue:
     """
     Compute median for numeric columns or mode for categorical columns.
 
@@ -72,7 +73,7 @@ def _calculate_column_replacement(values: list[Any], col_type: str) -> Any:
         col_type (str): Inferred column data type name.
 
     Returns:
-        Any: Computed replacement value matching column type.
+        PrimitiveValue: Computed replacement value matching column type.
 
     """
     if not values:
