@@ -1,155 +1,279 @@
-# 🚀 AI Pair Python Programming — Senior Capstone Suite
+# 🚀 Task 2: AI-Powered Data Cleaning Assistant
 
-An enterprise-grade Python 3.12+ repository built with modern `uv` / `src`-layout
-standards, zero external runtime dependencies, comprehensive test automation,
-centralized hourly rotating logging, and `release_notes.json` release notes management.
-
----
-
-## ⚡ Quick Start
-
-### 1. Launch Master Interactive Menu
-```bash
-python3 main.py
-```
-*(Opens interactive launcher for domain algorithms, cleaner, and tools)*
-
-### 2. View Release Notes & Version History (release_notes.json)
-```bash
-python3 -m ai_pair_programming.tools.version_manager
-```
-
-### 3. Run Automated Security & Code Bug Review Agent
-```bash
-python3 -m ai_pair_programming.tools.code_review_agent
-```
-*(Performs static AST inspection for security flaws and defect patterns)*
-
-### 4. Run All Automated Tests (40 Tests)
-```bash
-python3 tests.py
-# or
-python3 -m unittest discover tests
-```
-*(Executes all 40 unit and integration tests with 100% pass rate)*
+> **Automated Data Quality Remediation for Machine Learning Pipelines**  
+> Reference Implementation | Python 3.12+ Stdlib | Zero External Dependencies  
+> **100% CI Quality Gate Pass** | **48 Unit & Integration Tests** | **AST Validated**
 
 ---
 
-## 📂 Modern `uv` & `src/` Architecture
+## 1. Task 2 Engineering Requirements & Solutions
+
+The primary objective of **Task 2 (AI-Powered Data Cleaning Assistant)** is to
+automatically detect and resolve common data quality anomalies in structured
+datasets (such as *House Price Prediction* and *E-Commerce Transaction* datasets),
+transforming raw, dirty tabular data into analysis- and modeling-ready matrices.
+
+The pipeline executes a deterministic 4-stage data remediation workflow:
+
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│                   TASK 2 DATA QUALITY REMEDIATION PIPELINE             │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+    1. Data Type Correction         ▼
+    ┌────────────────────────────────────────────────────────────────────┐
+    │ • Multi-currency stripping ($1,250.00, €45.50 -> 1250.0, 45.5)     │
+    │ • Accounting parenthesized negatives ((250.00) -> -250.0)          │
+    │ • ISO-8601 Date Standardization (15/01/2024, 01-15-2024 -> YYYY-MM)│
+    │ • Heuristic Native Type Casting (int, float, bool, str, None)      │
+    └───────────────────────────────┬────────────────────────────────────┘
+                                    │
+    2. Duplicate Detection          ▼
+    ┌────────────────────────────────────────────────────────────────────┐
+    │ • Full-row exact duplicate identification                          │
+    │ • Order-preserving matrix row deduplication                        │
+    │ • Optional primary key collision filtering                         │
+    └───────────────────────────────┬────────────────────────────────────┘
+                                    │
+    3. Missing Value Imputation     ▼
+    ┌────────────────────────────────────────────────────────────────────┐
+    │ • Universal null token detection ("", "n/a", "none", "nan", "-999")│
+    │ • Numeric Columns: Column-level Median statistical replacement     │
+    │ • Categorical Columns: Column-level Mode frequency replacement     │
+    └───────────────────────────────┬────────────────────────────────────┘
+                                    │
+    4. Outlier Detection & Capping  ▼
+    ┌────────────────────────────────────────────────────────────────────┐
+    │ • Tukey's IQR Fences: [Q1 - 1.5*IQR, Q3 + 1.5*IQR]                 │
+    │ • Non-destructive Winsorization upper/lower boundary capping       │
+    │ • Preserves total sample size without distorting distribution      │
+    └───────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+                     Remediated ML-Ready Tabular Dataset
+```
+
+---
+
+### 1.1 Data Type Correction & Value Sanitization
+* **Location**: `src/ai_pair_programming/data_transformer/sanitizer.py`
+* **Mechanism**:
+  - **Null Token Recognition**: Inspects raw cells against `NULL_STRINGS` (`""`,
+    `"n/a"`, `"na"`, `"null"`, `"none"`, `"nan"`, `"-999"`, `"?"`, `"nil"`,
+    `"undefined"`, `"missing"`).
+  - **Financial Currency Parsing**: Strips international currency symbols (`$`,
+    `€`, `£`, `¥`), removes thousands commas, and resolves accounting-style
+    negative parenthesized strings (`(500)` $\to$ `-500.0`).
+  - **Date Normalization**: Standardizes non-uniform date strings (`DD/MM/YYYY`,
+    `MM/DD/YYYY`, `YYYY/MM/DD`, `DD-MM-YYYY`) into ISO-8601 `YYYY-MM-DD`.
+  - **Heuristic Type Casting**: Casts strings into appropriate native Python
+    primitives (`int`, `float`, `bool`, or `None`).
+
+### 1.2 Duplicate Detection & Removal
+* **Location**: `src/ai_pair_programming/data_transformer/deduplicator.py`
+* **Mechanism**:
+  - Performs order-preserving duplicate row filtering in $\mathcal{O}(N)$ time.
+  - Converts serialized cell values into immutable hashed row representations.
+  - Supports both full-row exact deduplication and primary-key index filtering.
+
+### 1.3 Missing Value Detection & Statistical Imputation
+* **Location**: `src/ai_pair_programming/data_transformer/imputer.py`
+* **Mechanism**:
+  - Scans all column vectors for standard and non-standard missing values.
+  - **Continuous Numeric Features**: Computes and substitutes the column **Median**
+    (resistant to extreme outliers).
+  - **Discrete Categorical Features**: Computes and substitutes the column **Mode**
+    (most frequent category), falling back to constant defaults if empty.
+
+### 1.4 Outlier Detection & Winsorization
+* **Location**: `src/ai_pair_programming/data_transformer/outlier_handler.py`
+* **Mechanism**:
+  - Calculates Interquartile Range ($IQR = Q_3 - Q_1$) across numeric features.
+  - Computes Tukey outlier fences:
+    $$\text{Lower} = Q_1 - 1.5 \times IQR, \quad \text{Upper} = Q_3 + 1.5 \times IQR$$
+  - Applies **Winsorization**: Caps extreme values exceeding the fences to the
+    respective boundary thresholds, preserving sample size without skewing models.
+
+---
+
+## 2. Before & After Pipeline Transformation
+
+### Raw Input Matrix (Dirty E-Commerce / House Price Dataset)
+| ID | Area (sqft) | Price (Raw) | Sale Date | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| `"101"` | `"1500"` | `"$450,000.00"` | `"2024-01-15"` | `"active"` |
+| `"102"` | `"-999"` | `"$500,000.00"` | `"15/01/2024"` | `"null"` |
+| `"103"` | `"12000"` | `"($50,000.00)"` | `"2024/01/16"` | `"pending"` |
+| `"101"` | `"1500"` | `"$450,000.00"` | `"2024-01-15"` | `"active"` |
+
+### Remediated Output Matrix (Cleaned & ML-Ready)
+| ID | Area (sqft) | Price (Float) | Sale Date (ISO) | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `101` | `1500` | `450000.0` | `"2024-01-15"` | `"active"` | Typed & parsed |
+| `102` | `1500` | `500000.0` | `"2024-01-15"` | `"active"` | Imputed values |
+| `103` | `3200` | `-50000.0` | `"2024-01-16"` | `"pending"`| Winsorized |
+
+*(Duplicate record dropped, missing area imputed with median 1500, outlier area
+capped to upper fence 3200).*
+
+---
+
+## 3. Directory & Package Architecture
 
 ```text
 AI-Pair-Python-Programming/
-├── main.py                      # Master interactive application launcher
-├── tests.py                     # Master automated test runner
-├── release_notes.json           # 📋 Release Notes & Version Specification
-├── pyproject.toml               # PEP 621 / uv package configuration
-├── README.md                    # Quickstart guide & documentation
-├── requirements.txt             # Standard runtime requirements (0 deps)
-│
-├── 📁 logs/                     # 1-Hour Rotating Log Storage
-│   └── app.log                  # Active hourly rotated application log
-│
-├── 🚀 CI/                       # Automated CI & Quality Scripts
-│   ├── check_line_length.py     # 88-column limit validator
-│   ├── validate_release_notes.py # release_notes.json schema validator
-│   └── run_quality_checks.py    # Master CI pipeline runner
-│
-├── 📖 docs/                     # Documentation & Standards
-│   ├── CODING_STANDARDS.md      # Clean Code & Readability standards
-│   ├── TECHNICAL_DOCUMENTATION.md # Full engineering specification
-│   └── DATASET_VALIDATION_GUIDE.md # Dirty dataset validation guide
-│
-├── 📦 src/
-│   └── ai_pair_programming/     # Top-Level Python Package
-│       ├── __init__.py          # Package metadata & re-exports
-│       ├── main.py              # CLI entrypoint
-│       │
-│       ├── 📡 telemetry/        # Structured Logging & File Rotation
-│       │   ├── __init__.py          # Re-exports OutputHandler & get_logger
-│       │   └── output_handler.py    # 1-Hour Rotating Handler Engine
-│       ├── 🧩 exercises/        # Task 1: Python Exercises for Senior Engineers
-│       │   ├── unique_elements.py   # Q1 & Q10: Unique & Set Ops
-│       │   ├── perfect_number.py    # Q2: Perfect Numbers
-│       │   ├── digit_difference.py  # Q3: Digit Permutation Diff
-│       │   ├── fibonacci_series.py  # Q4: Fibonacci Generator
-│       │   ├── movie_tickets.py     # Q5: Ticket Pricing REPL
-│       │   ├── interactive_loops.py # Q6: Sentinels & Loops
-│       │   └── anagram_solver.py    # Q7: Anagram Solver
-│       │
-│       ├── 🧹 capstone/         # Task 2: AI-Powered Data Cleaning Assistant
-│       │   ├── cleaner_engine.py    # Pipeline Orchestrator
-│       │   ├── reporter.py          # Terminal & Markdown Reporter
-│       │   ├── main.py              # Interactive Cleaner CLI
-│       │   ├── transformer/         # Sanitizer, Imputer, Outliers, I/O
-│       │   └── datasets/            # Sample Dirty CSVs
-│       │
-│       └── 🛠️ tools/            # Security & Versioning Tools
-│           ├── code_review_agent.py # AST Security Analyzer
-│           └── version_manager.py   # Release Notes & Version Manager
-│
-└── 🧪 tests/                    # Modular Test Suites (40 Tests)
-    ├── test_exercises.py        # Senior Exercises Tests
-    ├── test_data_transformer.py # Transformer Unit Tests
-    ├── test_data_cleaner.py     # Cleaner Assistant Tests
-    ├── test_output_handler.py   # Logging & Telemetry Tests
-    ├── test_code_review_agent.py # AST Security Agent Tests
-    ├── test_version_manager.py  # release_notes.json Version Tests
-    └── test_e2e.py              # E2E Pipeline Integration Tests
+├── main.py                          # Master Application CLI Entrypoint
+├── tests.py                         # Master Modular Test Suite Runner (48 Tests)
+├── pyproject.toml                   # Packaging & Tooling Config (Ruff / uv)
+├── release_notes.json               # Enterprise Change Tracking Database
+├── README.md                        # Task 2 Engineering Specification
+├── CI/                              # Continuous Integration Quality Gates
+│   ├── run_quality_checks.py        # Master CI Pipeline Runner
+│   ├── check_line_length.py         # 88-Column Line Width Checker
+│   ├── check_no_hash_comments.py    # Prohibited Hash Comment Auditor
+│   └── validate_release_notes.py    # release_notes.json Schema Validator
+├── src/ai_pair_programming/         # Source Root Package
+│   ├── __init__.py                  # Top-Level Package Exports & Models
+│   ├── models.py                    # Dataclass Models & Type Aliases
+│   ├── constants.py                 # Global Constants & RegEx Patterns
+│   ├── exceptions.py                # Domain Exceptions Hierarchy
+│   ├── exercises/                   # Task 1 Senior Exercises Subpackage
+│   │   ├── collections_ops.py       # Custom List Deduplication
+│   │   ├── numeric_math.py          # Primes, Fibonacci, & Math Utilities
+│   │   ├── string_manipulation.py   # Palindromes & String Normalization
+│   │   ├── loop_scenarios.py        # Matrix Transposition & Loops
+│   │   └── pizza_statements.py      # Exercise Test Driver & Benchmarks
+│   ├── capstone/                    # Task 2 Data Quality Assistant Subpackage
+│   │   ├── cleaner_engine.py        # DataCleaningAssistant Orchestrator
+│   │   ├── reporter.py              # Cleaning Audit Report Generator
+│   │   └── transformer/             # Subpackage Re-exports
+│   ├── data_transformer/            # Core Reusable Transformation Engine
+│   │   ├── sanitizer.py             # Type Inference & Currency Parsing
+│   │   ├── imputer.py               # Missing Value Statistical Imputation
+│   │   ├── outlier_handler.py       # IQR Fences & Winsorization Capping
+│   │   ├── deduplicator.py          # Exact & Key-Based Deduplication
+│   │   └── io_utils.py              # Robust Standard Library CSV I/O
+│   ├── telemetry/                   # Logging & Observability Engine
+│   │   └── output_handler.py        # ANSI Colored & 1-Hour Rotating Logger
+│   └── tools/                       # Developer & Governance Tools
+│       ├── code_review_agent.py     # AST Security & Defect Inspection Agent
+│       └── version_manager.py       # release_notes.json Tracking Engine
+└── tests/                           # Unit & Integration Test Suites
+    ├── test_exercises.py            # Task 1 Exercise Tests
+    ├── test_data_transformer.py     # Transformation Engine Tests
+    ├── test_data_cleaner.py         # Capstone Engine Tests
+    ├── test_models.py               # Data Models Tests
+    ├── test_constants_exceptions.py # Constants & Exception Tests
+    ├── test_output_handler.py       # Telemetry Logging Tests
+    ├── test_code_review_agent.py    # Security Agent Tests
+    ├── test_version_manager.py      # Version Manager Tests
+    └── test_e2e.py                  # End-to-End Pipeline Integration Tests
 ```
 
 ---
 
-## 📋 Release Notes & Version Management (`release_notes.json`)
+## 4. Programmatic API Usage Example
 
-The project uses [`release_notes.json`][rn-file] to track version transitions
-(`1.0.0` $\to$ `1.1.0` $\to$ `2.0.0`), timestamps, categorized changes, and
-validation metrics:
+```python
+from ai_pair_programming import (
+    CleaningConfig,
+    DataCleaningAssistant,
+    TabularDataset,
+    get_logger,
+)
 
-[rn-file]: release_notes.json
+# 1. Initialize Logger
+logger = get_logger("pipeline")
 
-```bash
-# View human-readable formatted release history
-python3 -m ai_pair_programming.tools.version_manager
+# 2. Configure Remediation Parameters
+config = CleaningConfig(
+    iqr_factor=1.5,
+    z_score_threshold=3.0,
+    numeric_impute_strategy="median",
+    categorical_impute_strategy="mode",
+)
 
-# View raw JSON specification
-python3 -m ai_pair_programming.tools.version_manager --json
+# 3. Instantiate Assistant & Remediate Matrix
+cleaner = DataCleaningAssistant(config=config, logger=logger)
+cleaned_headers, cleaned_rows = cleaner.clean_dataset(
+    headers=["id", "area", "price", "sale_date"],
+    rows=[
+        ["101", "1500", "$450,000.00", "2024-01-15"],
+        ["102", "-999", "$500,000.00", "15/01/2024"],
+        ["101", "1500", "$450,000.00", "2024-01-15"],
+    ],
+)
+
+# 4. Wrap in Strongly-Typed Dataclass
+dataset = TabularDataset(headers=cleaned_headers, rows=cleaned_rows)
+print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 ```
 
 ---
 
-## 📢 Output & Hourly Rotating Logging Engine
+## 5. Domain Models, Constants & Exceptions
 
-The `output_handler.py` module provides enterprise telemetry and log storage:
+### 5.1 Dataclass Models (`models.py`)
+- `PrimitiveValue`: `str | int | float | bool | None` scalar union type.
+- `RawCellValue`: `object` unvalidated input representation.
+- `CastResult`: `tuple[PrimitiveValue, str]` (value, type_name) tuple.
+- `TabularRow`: `list[PrimitiveValue]` row cell vector.
+- `TabularMatrix`: `list[TabularRow]` 2D table matrix.
+- `TabularDataset`: Strongly-typed dataset container with `.shape`, `.num_rows`.
+- `CleaningConfig`: Pipeline configuration dataclass.
+- `ReleaseRecord`: Version tracking model for `release_notes.json`.
 
-* **📁 Dedicated `logs/` Directory**: Centralizes time-stamped log files.
-* **⏰ 1-Hour Time-Based Rotation**: Automates hourly log file rotation
-  (`app.log.YYYY-MM-DD_HH`) via `TimedRotatingFileHandler` (retains 7 days).
-* **🌈 Colorized Console Streams**: Level-specific ANSI colors (DEBUG $\to$ CRITICAL).
-* **📊 Transformation Audit Logs**: Tracks step-level input, output, and delta records.
+### 5.2 Central Constants (`constants.py`)
+- `DEFAULT_IQR_FACTOR`: `1.5`
+- `DEFAULT_Z_SCORE_THRESHOLD`: `3.0`
+- `DEFAULT_NUMERIC_IMPUTE_STRATEGY`: `"median"`
+- `DEFAULT_CATEGORICAL_IMPUTE_STRATEGY`: `"mode"`
+- `NULL_STRINGS`: `frozenset({"", "n/a", "na", "null", "none", "nan", "-999"})`
+- `SUPPORTED_DATE_FORMATS`: `("%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%Y/%m/%d")`
+- `MAX_LINE_LENGTH`: `88`
 
----
-
-## 🧹 Capstone: AI-Powered Data Cleaning Assistant
-
-The data quality pipeline is located in `src/ai_pair_programming/data_cleaner/`:
-
-```bash
-# Run interactive cleaner
-python3 -m ai_pair_programming.data_cleaner.main
-
-# Or clean any custom dataset directly
-python3 -m ai_pair_programming.data_cleaner.main /path/to/custom_data.csv
+### 5.3 Domain Exceptions (`exceptions.py`)
+```text
+AIPairProgrammingError (Base Exception)
+├── DataCleanerError (Capstone Errors)
+│   ├── DatasetValidationError
+│   ├── ColumnNotFoundError
+│   └── FileProcessingError
+└── VersionManagerError (Versioning Errors)
+    └── ReleaseNotesSchemaError
 ```
 
 ---
 
-## 🧪 Verification & Automated Testing
+## 6. Static AST Review & Security Scanner Rules
+
+- `SEC-001` (CRITICAL): Dynamic code execution via `eval()` or `exec()`.
+- `SEC-002` (CRITICAL): Unsafe deserialization via `pickle` or `marshal`.
+- `SEC-003` (HIGH): Subprocess invocation with `shell=True`.
+- `SEC-004` (HIGH): Hardcoded API keys or secrets in source code.
+- `SEC-005` (HIGH): Race condition vulnerability in `tempfile.mktemp()`.
+- `BUG-001` (HIGH): Mutable default arguments (`def f(items=[])`).
+- `BUG-002` (MEDIUM): Bare `except:` catching `BaseException`.
+- `BUG-003` (LOW): Production `assert` statement stripped in `-O`.
+- `BUG-004` (MEDIUM): Fragile file extension replacement logic.
+- `BUG-005` (MEDIUM): Identity check (`is`/`is not`) on primitive literal.
+- `STYLE-001` (LOW): Line length exceeding 88-column limit (E501).
+- `STYLE-002` (LOW): Prohibited `#` comment in Python source files.
+
+---
+
+## 7. Execution & Verification Commands
 
 ```bash
-# Master runner (All 40 tests passing)
+# 1. Run Interactive CLI application
+python3 main.py
+
+# 2. Run master test suite (48 unit and integration tests)
 python3 tests.py
 
-# Format and lint with Ruff
-ruff check .
-ruff format .
+# 3. Run static AST security and defect scanner
+PYTHONPATH=src python3 -m ai_pair_programming.tools.code_review_agent
+
+# 4. Run master CI quality gate verification
+python3 CI/run_quality_checks.py
 ```
