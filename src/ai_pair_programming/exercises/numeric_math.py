@@ -70,6 +70,16 @@ def fibonacci_iterative(n: int) -> list[int]:
 
 @lru_cache(maxsize=128)
 def _fib_memo(k: int) -> int:
+    """
+    Compute single Fibonacci number recursively with memoization.
+
+    Args:
+        k (int): Term index.
+
+    Returns:
+        int: Fibonacci value at index k.
+
+    """
     if k <= 0:
         return 0
     if k == 1:

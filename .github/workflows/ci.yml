@@ -50,7 +50,7 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=src" >> $GITHUB_ENV
 
-      - name: Validate Release Notes Schema (RN.json)
+      - name: Validate Release Notes Schema (release_notes.json)
         run: |
           python3 CI/validate_release_notes.py
 
@@ -75,4 +75,4 @@ jobs:
 
       - name: Run Master Unit Test Suite
         run: |
-          python3 test_suite.py
+          python3 tests.py
