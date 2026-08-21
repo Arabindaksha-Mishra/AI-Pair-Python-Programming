@@ -1,12 +1,12 @@
-# 🚀 Task 2: AI-Powered Data Cleaning Assistant
+# 🚀 AI Pair Python Programming — Capstone & Senior Suite
 
-> **Automated Data Quality Remediation for Machine Learning Pipelines**  
-> Reference Implementation | Python 3.12+ Stdlib | Zero External Dependencies  
+> **Automated Data Quality Remediation & Senior Python Engineering Solutions**  
+> Python 3.12+ Standard Library | Zero External Dependencies  
 > **100% CI Quality Gate Pass** | **48 Unit & Integration Tests** | **AST Validated**
 
 ---
 
-## 1. Task 2 Engineering Requirements & Solutions
+## 1. Task 2: AI-Powered Data Cleaning Assistant
 
 The primary objective of **Task 2 (AI-Powered Data Cleaning Assistant)** is to
 automatically detect and resolve common data quality anomalies in structured
@@ -53,8 +53,6 @@ The pipeline executes a deterministic 4-stage data remediation workflow:
                      Remediated ML-Ready Tabular Dataset
 ```
 
----
-
 ### 1.1 Data Type Correction & Value Sanitization
 * **Location**: `src/ai_pair_programming/data_transformer/sanitizer.py`
 * **Mechanism**:
@@ -96,7 +94,62 @@ The pipeline executes a deterministic 4-stage data remediation workflow:
 
 ---
 
-## 2. Before & After Pipeline Transformation
+## 2. Task 1: Senior Python Exercises (7 Question Sets)
+
+The repository provides comprehensive, fully tested standard library implementations
+for the 7 foundational Senior Python Exercise questions in
+`src/ai_pair_programming/exercises/`:
+
+### 2.1 Question 1: Unique Elements & Deduplication (`unique_elements.py`)
+- **`unique_elements(items)`**: Performs $\mathcal{O}(N)$ order-preserving list
+  deduplication without altering element sequence.
+- **`set_union_and_difference(set_a, set_b)`**: Demonstrates set algebra by returning
+  the mathematical union ($A \cup B$) and difference ($A \setminus B$).
+
+### 2.2 Question 2: Perfect Number Validation (`perfect_number.py`)
+- **`is_perfect_number(n)`**: Efficient $\mathcal{O}(\sqrt{N})$ square-root factor
+  summation algorithm to verify if a positive integer equals the sum of its proper
+  divisors (e.g., $6 = 1 + 2 + 3$, $28 = 1 + 2 + 4 + 7 + 14$).
+- **`find_perfect_numbers_in_range(start, end)`**: Discovers all perfect numbers
+  bounded within an arbitrary numeric interval.
+
+### 2.3 Question 3: Digit Extremes & Difference (`digit_difference.py`)
+- **`digit_difference(number)`**: Computes the numerical difference between the
+  maximum and minimum integer permutations formed by the digits of a number
+  (e.g., input `2149` $\to 9421 - 1249 = 8172$).
+- **`get_digit_extremes(number)`**: Returns the maximum and minimum permutations.
+
+### 2.4 Question 4: Fibonacci Sequence Implementations (`fibonacci_series.py`)
+- **`fibonacci_iterative(n)`**: Generates first $n$ Fibonacci numbers in
+  $\mathcal{O}(N)$ time and $\mathcal{O}(N)$ space.
+- **`fibonacci_recursive(n)`**: Computes $n$-th Fibonacci value using memoization.
+- **`fibonacci_generator(limit)`**: Memory-efficient generator yielding Fibonacci
+  values lazily with $\mathcal{O}(1)$ auxiliary space.
+
+### 2.5 Question 5: Anagram Detection & Frequency Matching (`anagram_solver.py`)
+- **`are_anagrams_sorted(str1, str2)`**: Canonical character sorting with case
+  insensitivity and whitespace stripping.
+- **`are_anagrams_frequency(str1, str2)`**: Linear $\mathcal{O}(N)$ character frequency
+  counting algorithm using hash maps.
+- **`explain_anagram(str1, str2)`**: Generates human-readable anagram audit reports.
+
+### 2.6 Question 6: Movie Ticket Age-Tiered Pricing (`movie_tickets.py`)
+- **`calculate_movie_ticket_price(age)`**: Tiered price calculation function
+  (Age $< 3$: Free `$0.00`, Age $3\text{--}12$: `$10.00`, Age $> 12$: `$15.00`).
+- **`movie_tickets_repl()`**: Interactive terminal console loop supporting 'quit'
+  sentinels and graceful input validation.
+
+### 2.7 Question 7: Interactive Loops & Pizza Statements (`interactive_loops.py`)
+- **`pizza_toppings_repl()`**: Interactive `while True` loop prompting for toppings
+  until the `'quit'` sentinel is entered.
+- **`square_even_continue_loop(numbers)`**: Loops through integers, skipping odd
+  values via `continue` and returning squares of even values.
+- **`format_pizza_statements(pizzas)`**: Generates templated descriptive sentences
+  using idiomatic list comprehension.
+
+---
+
+## 3. Before & After Pipeline Transformation
 
 ### Raw Input Matrix (Dirty E-Commerce / House Price Dataset)
 | ID | Area (sqft) | Price (Raw) | Sale Date | Status |
@@ -118,7 +171,7 @@ capped to upper fence 3200).*
 
 ---
 
-## 3. Directory & Package Architecture
+## 4. Directory & Package Architecture
 
 ```text
 AI-Pair-Python-Programming/
@@ -126,7 +179,7 @@ AI-Pair-Python-Programming/
 ├── tests.py                         # Master Modular Test Suite Runner (48 Tests)
 ├── pyproject.toml                   # Packaging & Tooling Config (Ruff / uv)
 ├── release_notes.json               # Enterprise Change Tracking Database
-├── README.md                        # Task 2 Engineering Specification
+├── README.md                        # Task 1 & 2 Engineering Specification
 ├── CI/                              # Continuous Integration Quality Gates
 │   ├── run_quality_checks.py        # Master CI Pipeline Runner
 │   ├── check_line_length.py         # 88-Column Line Width Checker
@@ -138,11 +191,16 @@ AI-Pair-Python-Programming/
 │   ├── constants.py                 # Global Constants & RegEx Patterns
 │   ├── exceptions.py                # Domain Exceptions Hierarchy
 │   ├── exercises/                   # Task 1 Senior Exercises Subpackage
-│   │   ├── collections_ops.py       # Custom List Deduplication
-│   │   ├── numeric_math.py          # Primes, Fibonacci, & Math Utilities
-│   │   ├── string_manipulation.py   # Palindromes & String Normalization
-│   │   ├── loop_scenarios.py        # Matrix Transposition & Loops
-│   │   └── pizza_statements.py      # Exercise Test Driver & Benchmarks
+│   │   ├── __init__.py              # Exercises Re-exports
+│   │   ├── unique_elements.py       # Q1: Unique elements & deduplication
+│   │   ├── perfect_number.py        # Q2: Perfect numbers & range search
+│   │   ├── digit_difference.py      # Q3: Digit permutation max-min
+│   │   ├── fibonacci_series.py      # Q4: Fibonacci series & generator
+│   │   ├── anagram_solver.py        # Q5: Anagram detection & frequency
+│   │   ├── movie_tickets.py         # Q6: Age-tiered ticket pricing REPL
+│   │   ├── interactive_loops.py     # Q7: Interactive loops & continue
+│   │   ├── collections_ops.py       # Collection operations utility
+│   │   └── numeric_math.py          # Primes & mathematical algorithms
 │   ├── capstone/                    # Task 2 Data Quality Assistant Subpackage
 │   │   ├── cleaner_engine.py        # DataCleaningAssistant Orchestrator
 │   │   ├── reporter.py              # Cleaning Audit Report Generator
@@ -159,7 +217,7 @@ AI-Pair-Python-Programming/
 │       ├── code_review_agent.py     # AST Security & Defect Inspection Agent
 │       └── version_manager.py       # release_notes.json Tracking Engine
 └── tests/                           # Unit & Integration Test Suites
-    ├── test_exercises.py            # Task 1 Exercise Tests
+    ├── test_exercises.py            # Task 1 Exercise Tests (7 Modules)
     ├── test_data_transformer.py     # Transformation Engine Tests
     ├── test_data_cleaner.py         # Capstone Engine Tests
     ├── test_models.py               # Data Models Tests
@@ -172,7 +230,7 @@ AI-Pair-Python-Programming/
 
 ---
 
-## 4. Programmatic API Usage Example
+## 5. Programmatic API Usage Example
 
 ```python
 from ai_pair_programming import (
@@ -211,9 +269,9 @@ print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 
 ---
 
-## 5. Domain Models, Constants & Exceptions
+## 6. Domain Models, Constants & Exceptions
 
-### 5.1 Dataclass Models (`models.py`)
+### 6.1 Dataclass Models (`models.py`)
 - `PrimitiveValue`: `str | int | float | bool | None` scalar union type.
 - `RawCellValue`: `object` unvalidated input representation.
 - `CastResult`: `tuple[PrimitiveValue, str]` (value, type_name) tuple.
@@ -223,7 +281,7 @@ print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 - `CleaningConfig`: Pipeline configuration dataclass.
 - `ReleaseRecord`: Version tracking model for `release_notes.json`.
 
-### 5.2 Central Constants (`constants.py`)
+### 6.2 Central Constants (`constants.py`)
 - `DEFAULT_IQR_FACTOR`: `1.5`
 - `DEFAULT_Z_SCORE_THRESHOLD`: `3.0`
 - `DEFAULT_NUMERIC_IMPUTE_STRATEGY`: `"median"`
@@ -232,7 +290,7 @@ print(f"Remediated Matrix Shape: {dataset.shape}")  # (2, 4)
 - `SUPPORTED_DATE_FORMATS`: `("%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%Y/%m/%d")`
 - `MAX_LINE_LENGTH`: `88`
 
-### 5.3 Domain Exceptions (`exceptions.py`)
+### 6.3 Domain Exceptions (`exceptions.py`)
 ```text
 AIPairProgrammingError (Base Exception)
 ├── DataCleanerError (Capstone Errors)
@@ -245,7 +303,7 @@ AIPairProgrammingError (Base Exception)
 
 ---
 
-## 6. Static AST Review & Security Scanner Rules
+## 7. Static AST Review & Security Scanner Rules
 
 - `SEC-001` (CRITICAL): Dynamic code execution via `eval()` or `exec()`.
 - `SEC-002` (CRITICAL): Unsafe deserialization via `pickle` or `marshal`.
@@ -262,7 +320,7 @@ AIPairProgrammingError (Base Exception)
 
 ---
 
-## 7. Execution & Verification Commands
+## 8. Execution & Verification Commands
 
 ```bash
 # 1. Run Interactive CLI application
