@@ -16,13 +16,15 @@ Implements Task 2: Automated Data Cleaning Assistant:
 from __future__ import annotations
 
 from .cleaner_engine import (
+    CleaningMetrics,
     DataCleaningAssistant,
-    DataProfile,
+    DatasetProfile,
 )
-from .reporter import CleaningAuditReport
+from .reporter import generate_audit_report
 
 __all__ = [
-    "CleaningAuditReport",
+    "CleaningMetrics",
     "DataCleaningAssistant",
-    "DataProfile",
+    "DatasetProfile",
+    "generate_audit_report",
 ]
